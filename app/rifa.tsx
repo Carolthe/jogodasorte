@@ -19,7 +19,7 @@ export default function Rifa() {
 
   const numeros = Array.from({ length: 2000 }, (_, i) => i + 1);
 
-  const itensPorPagina = 66;
+  const itensPorPagina = 70;
   const inicio = pagina * itensPorPagina;
   const fim = inicio + itensPorPagina;
   const numerosPagina = numeros.slice(inicio, fim);
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    paddingHorizontal: 25,
+    paddingHorizontal: 40,
     marginTop: 20,
     fontWeight: "bold",
     textAlign: "center",
@@ -210,13 +210,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    marginHorizontal: 5,
   },
   numeroBox: {
-    margin: 4,
+    margin: 3,
     backgroundColor: "#1a1a2e",
     borderRadius: 8,
-    paddingHorizontal: 7,
+    paddingHorizontal: 6,
     paddingVertical: 10,
     alignItems: "center",
     borderWidth: 0.5,
