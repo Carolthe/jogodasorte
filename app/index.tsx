@@ -32,7 +32,7 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, paddingBottom: 280, backgroundColor: '#0e0e0e' },
+    container: { flex: 1, paddingBottom: 180, backgroundColor: '#0e0e0e' },
     text: { color: '#fff', textAlign: 'center', marginTop: 30, paddingHorizontal: 25, fontSize: 22, fontWeight: 'bold' },
     containerCardPremio: {
         flexDirection: 'row',
