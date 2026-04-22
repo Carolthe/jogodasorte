@@ -4,8 +4,8 @@ import { View, Image, StyleSheet, Dimensions, Animated, Easing } from 'react-nat
 const { width } = Dimensions.get('window');
 
 const images = [
-  'https://res.cloudinary.com/do4p13i1a/image/upload/v1776702735/primeiropremio_dqcya4.png',
-  'https://res.cloudinary.com/do4p13i1a/image/upload/v1776702819/segundopremio_qb0la8.png',
+  'https://res.cloudinary.com/do4p13i1a/image/upload/v1776873879/imagem_mobile_1_fihtrj.webp',
+  'https://res.cloudinary.com/do4p13i1a/image/upload/v1776873879/imagem_mobile_2_chisid.webp',
 ];
 
 export default function Carousel() {

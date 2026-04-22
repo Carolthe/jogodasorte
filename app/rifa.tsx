@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Rifa() {
   const router = useRouter();
@@ -19,10 +20,14 @@ export default function Rifa() {
 
   const numeros = Array.from({ length: 2000 }, (_, i) => i + 1);
 
+  const numerosFiltrados = busca.trim()
+    ? numeros.filter((n) => String(n).padStart(4, "0").includes(busca.trim()))
+    : null;
+
   const itensPorPagina = 70;
   const inicio = pagina * itensPorPagina;
   const fim = inicio + itensPorPagina;
-  const numerosPagina = numeros.slice(inicio, fim);
+  const numerosPagina = numerosFiltrados ?? numeros.slice(inicio, fim);
 
   const precoPorNumero = 20;
   const total = selecionados.length * precoPorNumero;
@@ -45,7 +50,6 @@ export default function Rifa() {
 
   function handleComprar() {
     if (selecionados.length === 0) return;
-
     router.push({
       pathname: "/pagamento-pix",
       params: {
@@ -62,9 +66,11 @@ export default function Rifa() {
       <Header />
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
-        <Text style={styles.title}>
-          Não perca a chance de ganhar até 20 Mil Reais
-        </Text>
+
+        {/* HERO */}
+        <View style={styles.hero}>
+          <Text style={styles.title}> Escolha seus números da sorte e concorra ao prêmio</Text>
+        </View>
 
         {/* STATUS */}
         <View style={styles.containerNumeros}>
@@ -82,16 +88,38 @@ export default function Rifa() {
           </View>
         </View>
 
-        {/* INPUT */}
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite um número (ex: 0001)"
-            placeholderTextColor="#a0a0b8"
-            keyboardType="numeric"
-            value={busca}
-            onChangeText={setBusca}
-          />
+        {/* BARRA DE BUSCA */}
+        <View style={styles.searchWrapper}>
+          <View style={styles.searchContainer}>
+            <Ionicons
+              name="search"
+              size={18}
+              color="#a0a0b8"
+              style={styles.searchIcon}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Buscar número (ex: 0042)"
+              placeholderTextColor="#a0a0b8"
+              keyboardType="numeric"
+              value={busca}
+              onChangeText={(t) => {
+                setBusca(t);
+                setPagina(0);
+              }}
+            />
+            {busca.length > 0 && (
+              <Pressable onPress={() => setBusca("")} style={styles.clearBtn}>
+                <Ionicons name="close-circle" size={18} color="#a0a0b8" />
+              </Pressable>
+            )}
+          </View>
+
+          {busca.length > 0 && (
+            <Text style={styles.searchResult}>
+              {numerosFiltrados?.length ?? 0} resultado(s) encontrado(s)
+            </Text>
+          )}
         </View>
 
         {/* GRID */}
@@ -112,26 +140,33 @@ export default function Rifa() {
           })}
         </View>
 
-        {/* PAGINAÇÃO */}
-        <View style={styles.paginacao}>
-          <Pressable
-            onPress={paginaAnterior}
-            style={[styles.botao, pagina === 0 && styles.botaoDisabled]}
-            disabled={pagina === 0}
-          >
-            <Text style={styles.botaoTexto}>Anterior</Text>
-          </Pressable>
+        {/* PAGINAÇÃO — só aparece quando não há busca ativa */}
+        {!busca && (
+          <View style={styles.paginacao}>
+            <Pressable
+              onPress={paginaAnterior}
+              style={[styles.botao, pagina === 0 && styles.botaoDisabled]}
+              disabled={pagina === 0}
+            >
+              <Ionicons name="chevron-back" size={16} color="#fff" />
+              <Text style={styles.botaoTexto}>Anterior</Text>
+            </Pressable>
 
-          <Text style={styles.paginaTexto}>Página {pagina + 1}</Text>
+            <View style={styles.paginaInfo}>
+              <Text style={styles.paginaTexto}>Página</Text>
+              <Text style={styles.paginaNumero}>{pagina + 1}</Text>
+            </View>
 
-          <Pressable
-            onPress={proximaPagina}
-            style={[styles.botao, fim >= numeros.length && styles.botaoDisabled]}
-            disabled={fim >= numeros.length}
-          >
-            <Text style={styles.botaoTexto}>Próximo</Text>
-          </Pressable>
-        </View>
+            <Pressable
+              onPress={proximaPagina}
+              style={[styles.botao, fim >= numeros.length && styles.botaoDisabled]}
+              disabled={fim >= numeros.length}
+            >
+              <Text style={styles.botaoTexto}>Próximo</Text>
+              <Ionicons name="chevron-forward" size={16} color="#fff" />
+            </Pressable>
+          </View>
+        )}
       </ScrollView>
 
       {/* FOOTER FIXO */}
@@ -144,10 +179,14 @@ export default function Rifa() {
         </View>
 
         <Pressable
-          style={[styles.botaoComprar, selecionados.length === 0 && styles.botaoComprarDisabled]}
+          style={[
+            styles.botaoComprar,
+            selecionados.length === 0 && styles.botaoComprarDisabled,
+          ]}
           onPress={handleComprar}
           disabled={selecionados.length === 0}
         >
+          <Ionicons name="ticket-outline" size={18} color="#fff" style={{ marginRight: 6 }} />
           <Text style={styles.botaoComprarTexto}>Comprar</Text>
         </Pressable>
       </View>
@@ -160,15 +199,46 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0e0e0e",
   },
-  title: {
-    fontSize: 20,
-    paddingHorizontal: 40,
-    marginTop: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-    color: "#fff",
+
+  // HERO
+  hero: {
+    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingBottom: 20,
   },
+  heroBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    backgroundColor: "rgba(124,58,237,0.15)",
+    borderWidth: 0.5,
+    borderColor: "#7c3aed",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    gap: 5,
+    marginBottom: 12,
+  },
+  heroBadgeText: {
+    color: "#d8b4fe",
+    fontSize: 11,
+    fontWeight: "500",
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 8,
+    textAlign: 'center',
+    marginHorizontal: 10,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: "#a0a0b8",
+    lineHeight: 20,
+  },
+
+  // STATUS
   containerNumeros: {
     flexDirection: "row",
     gap: 10,
@@ -184,28 +254,51 @@ const styles = StyleSheet.create({
     width: "30%",
     borderWidth: 0.5,
     borderColor: "#2e2e50",
+    gap: 4,
   },
   label: {
-    fontSize: 12,
+    fontSize: 11,
   },
   value: {
     fontSize: 18,
     fontWeight: "bold",
   },
-  inputContainer: {
+
+  // BUSCA
+  searchWrapper: {
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginBottom: 16,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: "#1a1a2e",
-    borderRadius: 10,
-    paddingHorizontal: 15,
+    borderRadius: 12,
     borderWidth: 0.5,
     borderColor: "#2e2e50",
+    paddingHorizontal: 14,
+    height: 48,
+  },
+  searchIcon: {
+    marginRight: 10,
   },
   input: {
+    flex: 1,
     color: "#fff",
-    height: 45,
     fontSize: 15,
+    height: "100%",
   },
+  clearBtn: {
+    padding: 4,
+  },
+  searchResult: {
+    color: "#a0a0b8",
+    fontSize: 12,
+    marginTop: 8,
+    marginLeft: 4,
+  },
+
+  // GRID
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -235,19 +328,23 @@ const styles = StyleSheet.create({
   numeroTextoSelected: {
     color: "#fff",
   },
+
+  // PAGINAÇÃO
   paginacao: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 30,
+    gap: 20,
     alignItems: "center",
-    padding: 15,
+    padding: 20,
   },
   botao: {
     backgroundColor: "#7c3aed",
-    padding: 12,
-    borderRadius: 8,
-    minWidth: 100,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    flexDirection: "row",
     alignItems: "center",
+    gap: 4,
   },
   botaoDisabled: {
     backgroundColor: "#2e2e50",
@@ -256,11 +353,22 @@ const styles = StyleSheet.create({
   botaoTexto: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: 14,
+  },
+  paginaInfo: {
+    alignItems: "center",
   },
   paginaTexto: {
     color: "#a0a0b8",
-    fontSize: 14,
+    fontSize: 11,
   },
+  paginaNumero: {
+    color: "#d8b4fe",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+
+  // FOOTER
   footer: {
     position: "absolute",
     bottom: 0,
@@ -286,8 +394,10 @@ const styles = StyleSheet.create({
   botaoComprar: {
     backgroundColor: "#7c3aed",
     paddingVertical: 12,
-    paddingHorizontal: 25,
+    paddingHorizontal: 20,
     borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
   },
   botaoComprarDisabled: {
     backgroundColor: "#2e2e50",
