@@ -17,8 +17,8 @@ type Props = {
 };
 
 type QrCodeData = {
-  pix_pagamento?: string;
-  imagem?: string;
+  chave_pix?: string;
+  qr_code?: string;
 };
 
 export default function CardQrCode({ valor }: Props) {
@@ -32,28 +32,28 @@ export default function CardQrCode({ valor }: Props) {
 
   const fadeAnim = useState(new Animated.Value(0))[0];
 
-  useEffect(() => {
-    async function carregarPix() {
-      try {
-        const response = await api.get<QrCodeData>("/apostas/qrcode-pix");
-        const data = response.data;
+useEffect(() => {
+  async function carregarPix() {
+    try {
+      const response = await api.get<QrCodeData>("/apostas/qrcode-pix");
+      const data = response.data;
 
-        if (data?.pix_pagamento) {
-          setPixKey(data.pix_pagamento);
-        }
-
-        if (data?.imagem && typeof data.imagem === "string") {
-          setQrCodeImage({ uri: data.imagem.trim() });
-        }
-      } catch (error) {
-        console.log("Erro ao buscar PIX:", error);
-      } finally {
-        setLoading(false);
+      if (data?.chave_pix) {
+        setPixKey(data.chave_pix);
       }
-    }
 
-    carregarPix();
-  }, []);
+      if (data?.qr_code) {
+        setQrCodeImage({ uri: data.qr_code.trim() });
+      }
+    } catch (error) {
+      console.log("Erro ao buscar PIX:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  carregarPix();
+}, []);
 
   const handleCopy = async () => {
     await Clipboard.setStringAsync(pixKey);
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
   },
   qrContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#1a1a2e",
     borderRadius: 12,
     alignItems: "center",
     padding: 16,

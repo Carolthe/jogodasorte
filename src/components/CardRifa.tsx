@@ -33,7 +33,6 @@ export default function CardRifa({
 
       {/* TÍTULO E DESCRIÇÃO */}
       <Text style={styles.titulo}>{titulo}</Text>
-      <Text style={styles.descricao}>{descricao}</Text>
 
       <View style={styles.divider} />
 
@@ -45,7 +44,7 @@ export default function CardRifa({
       )}
 
       {/* PROGRESSO */}
-      <View style={styles.progressoHeader}>
+      {/* <View style={styles.progressoHeader}>
         <Text style={styles.progressoLabel}>Números vendidos</Text>
         <Text style={styles.progressoPercent}>{percentual}%</Text>
       </View>
@@ -55,7 +54,7 @@ export default function CardRifa({
       <View style={styles.progressoFooter}>
         <Text style={styles.progressoSub}>{numerosVendidos} vendidos</Text>
         <Text style={styles.progressoSub}>{totalNumeros - numerosVendidos} disponíveis</Text>
-      </View>
+      </View> */}
 
       {/* BOTÃO */}
       <TouchableOpacity
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 6,
   },
   descricao: {
     color: "#a0a0b8",

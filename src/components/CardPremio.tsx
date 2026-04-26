@@ -12,20 +12,14 @@ const config: Record<string, { icon: keyof typeof Ionicons.glyphMap; cor: string
     icon: "trophy",
     cor: "#d8b4fe",
     corFundo: "#2e1a5e",
-    corBorda: "#7c3aed",
+    corBorda: " ",
   },
   "2º Prêmio": {
     icon: "medal",
     cor: "#a855f7",
     corFundo: "#1e1a3a",
     corBorda: "#6d28d9",
-  },
-  "3º Prêmio": {
-    icon: "ribbon",
-    cor: "#7c3aed",
-    corFundo: "#1a1a2e",
-    corBorda: "#534AB7",
-  },
+  }
 };
 
 export default function CardPremio({
@@ -35,7 +29,7 @@ export default function CardPremio({
   const tema = config[titulo] ?? config["3º Prêmio"];
 
   return (
-    <View style={[styles.card, { borderColor: tema.corBorda }]}>
+    <View style={[styles.card]}>
 
       <View style={[styles.iconBox, { backgroundColor: tema.corFundo, borderColor: tema.corBorda }]}>
         <Ionicons name={tema.icon} size={22} color={tema.cor} />

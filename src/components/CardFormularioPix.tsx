@@ -3,11 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-nativ
 import api from "@/src/services/api";
 
 type Props = {
-  id_aposta: string;
+  id_compra: string;
   onGerar: () => void;
 };
 
-export default function CardFormularioPix({ id_aposta, onGerar }: Props) {
+export default function CardFormularioPix({ id_compra, onGerar }: Props) {
   const [pixKey, setPixKey] = useState("");
   const [name, setName] = useState("");
 
@@ -16,11 +16,17 @@ export default function CardFormularioPix({ id_aposta, onGerar }: Props) {
   const handleGenerate = async () => {
     if (!isFormValid) return;
 
+      console.log("ENVIANDO:", {   // ✅ adicione isto
+    id_compra: id_compra,
+    chavepix_dono: pixKey,
+    nome_titular: name,
+  });
+
     try {
       await api.post("/apostas/pagar", {
-        id_aposta,
-        pix_pagamento: pixKey,
-        titular_banco: name,
+        id_compra: id_compra,
+        chavepix_dono: pixKey,
+        nome_titular: name,
       });
 
       onGerar();
@@ -36,7 +42,7 @@ export default function CardFormularioPix({ id_aposta, onGerar }: Props) {
         Informe seus dados para gerar o código PIX
       </Text>
 
-      <Text style={styles.label}>Sua Chave PIX</Text>
+      <Text style={styles.label}>Chave PIX</Text>
       <TextInput
         style={styles.input}
         placeholder="CPF, Email, Telefone ou chave aleatória"

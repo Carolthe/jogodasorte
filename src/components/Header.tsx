@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 20,
         backgroundColor: '#1a1a2e',
+        height: 65,
     },
     logoImage: {
         width: 25,
@@ -61,10 +62,12 @@ const styles = StyleSheet.create({
     },
     botaoSair: {
         justifyContent: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 7,
         borderRadius: 8,
         borderWidth: 2,
         borderColor: '#ffffff',
+        
     },
     botaoEntrar: {
         backgroundColor: '#820AD1',

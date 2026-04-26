@@ -11,12 +11,13 @@ export default function PagamentoPix() {
   const params = useLocalSearchParams<{
     placar: string;
     valor: string;
-    id_aposta: string;
+    id_compra: string;
   }>();
 
-  const { placar, valor, id_aposta } = params;
+  const { placar, valor, id_compra } = params;
 
   const [mostrarQr, setMostrarQr] = useState(false);
+  console.log("PARAMS:", params);
 
   return (
     <ScrollView style={styles.screen}>
@@ -33,7 +34,7 @@ export default function PagamentoPix() {
 
         {!mostrarQr ? (
           <CardFormularioPix
-            id_aposta={id_aposta}
+            id_compra={id_compra}
             onGerar={() => setMostrarQr(true)}
           />
         ) : (

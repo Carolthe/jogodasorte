@@ -10,6 +10,9 @@ export default function ResumoAposta({ placar, valor }: Props) {
 
   const numeros = placar.split(",").map((n) => n.trim()).filter(Boolean);
 
+  const valorFormatado = Number(valor).toFixed(2);
+
+
   return (
     <View style={styles.card}>
 
@@ -19,7 +22,7 @@ export default function ResumoAposta({ placar, valor }: Props) {
           <Text style={styles.headerIcon}>🎟</Text>
         </View>
         <View>
-          <Text style={styles.title}>Seu resumo</Text>
+          <Text style={styles.title}>Resumo:</Text>
         </View>
       </View>
 
@@ -45,7 +48,7 @@ export default function ResumoAposta({ placar, valor }: Props) {
 
       <View style={styles.row}>
         <Text style={styles.label}>Valor total</Text>
-        <Text style={styles.value}>R$ {valor}</Text>
+        <Text style={styles.value}>R$ {valorFormatado}</Text>
       </View>
         
           {/* <View style={styles.divider} /> */}
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    marginBottom: 12,
   },
   headerIconBox: {
     width: 42,

@@ -12,8 +12,8 @@ export default function CardAlertPagamento() {
       </View>
 
       <Text style={styles.text}>
-        Seu pagamento será analisado. Caso você seja o vencedor,
-        o valor será enviado para a chave Pix cadastrada.
+        Seu pagamento será analisado. Caso você seja o vencedor, entraremos em contato com você e
+        o prêmio será enviado para a chave Pix cadastrada.
       </Text>
 
       <View style={styles.infoBox}>
@@ -22,7 +22,7 @@ export default function CardAlertPagamento() {
       </View>
 
       <Text style={styles.footer}>
-        A Mundial dos Jogos te deseja boa sorte!
+        A SortePrêmiada te deseja boa sorte!
       </Text>
     </View>
   );

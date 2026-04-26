@@ -1,24 +1,44 @@
 import Header from "@/src/components/Header";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-  TextInput,
-} from "react-native";
-import { useState } from "react";
+import { View, Text, StyleSheet, Pressable, ScrollView, TextInput, Alert } from "react-native";
+import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import VoltarHome from "@/src/components/VoltarHome";
+import api from "@/src/services/api";
+import { useAuth } from "@/src/contexts/AuthContext";
+import { Platform } from "react-native";
 
 export default function Rifa() {
   const router = useRouter();
+  const { user, carregando } = useAuth();
 
+  const [numeros, setNumeros] = useState<number[]>([]);
+  const [loadingNumeros, setLoadingNumeros] = useState(true);
   const [selecionados, setSelecionados] = useState<number[]>([]);
   const [pagina, setPagina] = useState(0);
   const [busca, setBusca] = useState("");
 
-  const numeros = Array.from({ length: 2000 }, (_, i) => i + 1);
+  useEffect(() => {
+    async function fetchNumeros() {
+      try {
+        const response = await api.get("/rifa/numeros");
+        setNumeros(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar números:", error);
+      } finally {
+        setLoadingNumeros(false);
+      }
+    }
+    fetchNumeros();
+  }, []);
+
+  if (loadingNumeros || carregando) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Carregando...</Text>
+      </View>
+    );
+  }
 
   const numerosFiltrados = busca.trim()
     ? numeros.filter((n) => String(n).padStart(4, "0").includes(busca.trim()))
@@ -48,35 +68,80 @@ export default function Rifa() {
     if (pagina > 0) setPagina((p) => p - 1);
   }
 
-  function handleComprar() {
+  async function handleComprar() {
+
+    if (carregando) return;
+
+    if (!user) {
+      if (Platform.OS === "web") {
+        const confirmar = window.confirm(
+          "Você precisa estar logado para comprar números.\nDeseja ir para o login?"
+        );
+        if (confirmar) router.push("/login");
+      } else {
+        Alert.alert(
+          "Login necessário",
+          "Você precisa estar logado para comprar números.",
+          [
+            { text: "Cancelar", style: "cancel" },
+            { text: "Entrar", onPress: () => router.push("/login") },
+          ]
+        );
+      }
+      return;
+    }
+
     if (selecionados.length === 0) return;
-    router.push({
-      pathname: "/pagamento-pix",
-      params: {
-        valor: total.toFixed(2),
-        premio: "15000",
-        jogo: "Rifa Mundial",
-        placar: selecionados.map((n) => String(n).padStart(4, "0")).join(", "),
-      },
-    });
+
+    try {
+      const response = await api.post("/rifa/compras", {
+        total_numeros: selecionados.length,
+        valor_total: total,
+        numeros: selecionados, // opcional (se quiser salvar depois)
+      });
+
+      const compra = response.data;
+
+      // depois de salvar, vai pro pagamento
+      router.push({
+        pathname: "/pagamento-pix",
+        params: {
+          valor: total.toFixed(2),
+          id_compra: compra.id_compra,
+          placar: selecionados
+            .map((n) => String(n).padStart(4, "0"))
+            .join(", "),
+        },
+      });
+
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Erro", "Não foi possível realizar a compra.");
+    }
   }
 
   return (
     <View style={styles.container}>
       <Header />
 
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 120 }}
+      >
+        <VoltarHome />
 
         {/* HERO */}
         <View style={styles.hero}>
-          <Text style={styles.title}> Escolha seus números da sorte e concorra ao prêmio</Text>
+          <Text style={styles.title}>
+            Escolha seus números da sorte e concorra aos prêmios
+          </Text>
         </View>
 
         {/* STATUS */}
         <View style={styles.containerNumeros}>
           <View style={styles.box}>
             <Text style={[styles.label, { color: "#22c55e" }]}>Disponível</Text>
-            <Text style={[styles.value, { color: "#22c55e" }]}>2000</Text>
+            <Text style={[styles.value, { color: "#22c55e" }]}>{numeros.length}</Text>
           </View>
           <View style={styles.box}>
             <Text style={[styles.label, { color: "#a855f7" }]}>Reservado</Text>
@@ -84,11 +149,11 @@ export default function Rifa() {
           </View>
           <View style={styles.box}>
             <Text style={[styles.label, { color: "#7c3aed" }]}>Vendido</Text>
-            <Text style={[styles.value, { color: "#7c3aed" }]}>1000</Text>
+            <Text style={[styles.value, { color: "#7c3aed" }]}>0</Text>
           </View>
         </View>
 
-        {/* BARRA DE BUSCA */}
+        {/* BUSCA */}
         <View style={styles.searchWrapper}>
           <View style={styles.searchContainer}>
             <Ionicons
@@ -99,7 +164,7 @@ export default function Rifa() {
             />
             <TextInput
               style={styles.input}
-              placeholder="Buscar número (ex: 0042)"
+              placeholder="Buscar número"
               placeholderTextColor="#a0a0b8"
               keyboardType="numeric"
               value={busca}
@@ -114,10 +179,9 @@ export default function Rifa() {
               </Pressable>
             )}
           </View>
-
           {busca.length > 0 && (
             <Text style={styles.searchResult}>
-              {numerosFiltrados?.length ?? 0} resultado(s) encontrado(s)
+              {numerosFiltrados?.length ?? 0} resultado(s)
             </Text>
           )}
         </View>
@@ -132,7 +196,12 @@ export default function Rifa() {
                 onPress={() => toggleNumero(numero)}
                 style={[styles.numeroBox, isSelected && styles.numeroSelecionado]}
               >
-                <Text style={[styles.numeroTexto, isSelected && styles.numeroTextoSelected]}>
+                <Text
+                  style={[
+                    styles.numeroTexto,
+                    isSelected && styles.numeroTextoSelected,
+                  ]}
+                >
                   {String(numero).padStart(4, "0")}
                 </Text>
               </Pressable>
@@ -140,7 +209,7 @@ export default function Rifa() {
           })}
         </View>
 
-        {/* PAGINAÇÃO — só aparece quando não há busca ativa */}
+        {/* PAGINAÇÃO */}
         {!busca && (
           <View style={styles.paginacao}>
             <Pressable
@@ -159,7 +228,10 @@ export default function Rifa() {
 
             <Pressable
               onPress={proximaPagina}
-              style={[styles.botao, fim >= numeros.length && styles.botaoDisabled]}
+              style={[
+                styles.botao,
+                fim >= numeros.length && styles.botaoDisabled,
+              ]}
               disabled={fim >= numeros.length}
             >
               <Text style={styles.botaoTexto}>Próximo</Text>
@@ -169,11 +241,11 @@ export default function Rifa() {
         )}
       </ScrollView>
 
-      {/* FOOTER FIXO */}
+      {/* FOOTER */}
       <View style={styles.footer}>
         <View>
           <Text style={styles.totalTexto}>
-            {selecionados.length} número(s) selecionado(s)
+            {selecionados.length} número(s)
           </Text>
           <Text style={styles.totalValor}>R$ {total.toFixed(2)}</Text>
         </View>
@@ -181,13 +253,20 @@ export default function Rifa() {
         <Pressable
           style={[
             styles.botaoComprar,
-            selecionados.length === 0 && styles.botaoComprarDisabled,
+            selecionados.length === 0 && !!user && styles.botaoComprarDisabled,
           ]}
           onPress={handleComprar}
-          disabled={selecionados.length === 0}
+          disabled={carregando}
         >
-          <Ionicons name="ticket-outline" size={18} color="#fff" style={{ marginRight: 6 }} />
-          <Text style={styles.botaoComprarTexto}>Comprar</Text>
+          <Ionicons
+            name="ticket-outline"
+            size={18}
+            color="#fff"
+            style={{ marginRight: 6 }}
+          />
+          <Text style={styles.botaoComprarTexto}>
+            Comprar
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -200,42 +279,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#0e0e0e",
   },
 
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0e0e0e",
+  },
+  loadingText: {
+    color: "#a0a0b8",
+    fontSize: 15,
+  },
+
   // HERO
   hero: {
     paddingHorizontal: 24,
-    paddingTop: 24,
     paddingBottom: 20,
-  },
-  heroBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
-    backgroundColor: "rgba(124,58,237,0.15)",
-    borderWidth: 0.5,
-    borderColor: "#7c3aed",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    gap: 5,
-    marginBottom: 12,
-  },
-  heroBadgeText: {
-    color: "#d8b4fe",
-    fontSize: 11,
-    fontWeight: "500",
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
     marginHorizontal: 10,
-  },
-  subtitle: {
-    fontSize: 14,
-    color: "#a0a0b8",
-    lineHeight: 20,
   },
 
   // STATUS
@@ -266,8 +332,9 @@ const styles = StyleSheet.create({
 
   // BUSCA
   searchWrapper: {
-    marginHorizontal: 20,
     marginBottom: 16,
+    justifyContent: "center",
+    flexDirection: "row",
   },
   searchContainer: {
     flexDirection: "row",
@@ -278,6 +345,7 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
     paddingHorizontal: 14,
     height: 48,
+    width: "87%",
   },
   searchIcon: {
     marginRight: 10,
