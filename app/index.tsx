@@ -16,7 +16,7 @@ export default function Home() {
         <ScrollView style={styles.container}>
             <Header />
             <Carrossel imagens={banners} intervalo={4000} altura={210} />
-            <Text style={styles.text}>Concorra a R$ 20 Mil em Prêmios</Text>
+            <Text style={styles.text}>Concorra a Prêmios Incriveis</Text>
             <View style={styles.containerCardPremio}>
                 <CardPremio
                     titulo="1º Prêmio"
@@ -25,13 +25,14 @@ export default function Home() {
                 />
                 <CardPremio
                     titulo="2º Prêmio"
-                    valor="R$ 5.000"
+                    valor="Viagem"
                     imagem={require('@/src/assets/trofeu2.png')}
                 />
             </View>
             <View style={styles.containerCardRifa}>
-                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha um Número e tenha duas chances de ganhar' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 20:' textoBotao="Escolher" />
+                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha um Número e tenha chance de ganhar dois prêmios' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 20:' textoBotao="Escolher" />
             </View>
+            <Text style={styles.textInfo} onPress={() => router.replace('/info-rifa')}>Saber mais informações</Text>
         </ScrollView>
     );
 }
@@ -48,5 +49,12 @@ const styles = StyleSheet.create({
     containerCardRifa: {
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    textInfo: {
+        color: '#d1d1d1',
+        textDecorationLine: 'underline',
+        textAlign: 'center',
+        paddingTop: 20,
+        fontSize: 16,
     }
 });

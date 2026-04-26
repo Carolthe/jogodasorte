@@ -13,7 +13,6 @@ type Props = {
 
 export default function CardRifa({
   titulo,
-  descricao,
   textoExtra,
   textoBotao,
   totalNumeros = 2000,

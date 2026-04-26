@@ -59,7 +59,7 @@ export default function ResumoAposta({ placar, valor }: Props) {
           </View>
           <View style={styles.premioRow}>
             <Text style={styles.premioLabel}>2º Prêmio</Text>
-            <Text style={styles.premioValor}>R$ 5.000</Text>
+            <Text style={styles.premioValor2}>Viagem hospedagem + 2Mil</Text>
           </View>
         
     </View>
@@ -166,6 +166,12 @@ const styles = StyleSheet.create({
   premioValor: {
     color: "#d8b4fe",
     fontSize: 20,
+    fontWeight: "bold",
+  },
+   premioValor2: {
+    color: "#d8b4fe",
+    fontSize: 16,
+    paddingVertical: 3,
     fontWeight: "bold",
   },
 });
