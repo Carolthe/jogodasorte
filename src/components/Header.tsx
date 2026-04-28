@@ -70,17 +70,17 @@ const styles = StyleSheet.create({
         
     },
     botaoEntrar: {
-        backgroundColor: '#810ad15b',
+       backgroundColor: '#22c55e00',
         height: 40,
         justifyContent: 'center',
         paddingHorizontal: 10,
         borderRadius: 8,
+         borderWidth: 2,
+        borderColor: '#ffffff',
     },
     botaoCriarConta: {
-        backgroundColor: '#22c55e00',
         justifyContent: 'center',
         borderRadius: 8,
-        borderWidth: 2,
-        borderColor: '#ffffff',
+        backgroundColor: '#820AD1',
     },
 });
