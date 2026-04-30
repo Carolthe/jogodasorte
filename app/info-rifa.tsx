@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Header from "@/src/components/Header";
 import VoltarHome from "@/src/components/VoltarHome";
 
-const INSTAGRAM_URL = "https://www.instagram.com/rifa_prmiada/"; // ← substitua
+const INSTAGRAM_URL = "https://www.instagram.com/rifa_winner/"; // ← substitua
 
 type ItemProps = {
   numero: number;

@@ -99,17 +99,7 @@ export default function Rifa() {
     if (carregando) return;
 
     if (!user) {
-      if (Platform.OS === "web") {
-        const confirmar = window.confirm(
-          "Você precisa estar logado para comprar números.\nDeseja ir para o login?"
-        );
-        if (confirmar) router.push("/login");
-      } else {
-        Alert.alert("Login necessário", "Você precisa estar logado.", [
-          { text: "Cancelar", style: "cancel" },
-          { text: "Entrar", onPress: () => router.push("/login") },
-        ]);
-      }
+      router.push("/login");
       return;
     }
 

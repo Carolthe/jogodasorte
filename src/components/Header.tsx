@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: 12,
         paddingHorizontal: 20,
         backgroundColor: '#1a1a2e',
         height: 65,
@@ -48,7 +47,6 @@ const styles = StyleSheet.create({
     logoImage: {
         width: 25,
         height: 25,
-
     }, actions: { flexDirection: 'row', gap: 16 },
     sairText: {
         color: '#820AD1',
@@ -71,16 +69,17 @@ const styles = StyleSheet.create({
     },
     botaoEntrar: {
        backgroundColor: '#22c55e00',
-        height: 40,
+        height: 38,
         justifyContent: 'center',
         paddingHorizontal: 10,
         borderRadius: 8,
-         borderWidth: 2,
+        borderWidth: 2,
         borderColor: '#ffffff',
     },
     botaoCriarConta: {
         justifyContent: 'center',
         borderRadius: 8,
         backgroundColor: '#820AD1',
+        height: 40,
     },
 });
