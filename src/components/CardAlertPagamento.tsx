@@ -22,7 +22,7 @@ export default function CardAlertPagamento() {
       </View>
 
       <Text style={styles.footer}>
-        A SortePrêmiada te deseja boa sorte!
+        Nós te desejamos boa sorte!
       </Text>
     </View>
   );

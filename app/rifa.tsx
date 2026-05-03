@@ -158,7 +158,7 @@ export default function Rifa() {
         <View style={styles.containerNumeros}>
           {(
             [
-              { label: "Disponível", status: "disponivel" as Filtro, cor: "#3d3aed", qtd: qtdDisponivel },
+              { label: "Disponível", status: "disponivel" as Filtro, cor: "#003480", qtd: qtdDisponivel },
               { label: "Reservado", status: "reservado" as Filtro, cor: "#ebc839", qtd: qtdReservado },
               { label: "Vendido", status: "vendido" as Filtro, cor: "rgb(77, 163, 249)", qtd: qtdVendido },
             ]
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6, width: "16.66%", paddingVertical: 10,
     alignItems: "center", borderWidth: 0.5, borderColor: "#2e2e50",
   },
-  numeroSelecionado: { backgroundColor: "#3d3aed", borderColor: "#5560f7" },
+  numeroSelecionado: { backgroundColor: "#003480", borderColor: "#5560f7" },
   numeroReservado: { backgroundColor: "#1a1a2e", opacity: 0.4 },       // opaco
   numeroVendido: { backgroundColor: "#1a0a2e", borderColor: "#4c1d95" }, // mais escuro com X
 
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
   numeroTextoReservado: { color: "#555" },
 
   paginacao: { flexDirection: "row", justifyContent: "center", gap: 20, alignItems: "center", padding: 20 },
-  botao: { backgroundColor: "#3d3aed", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
+  botao: { backgroundColor: "#003480", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
   botaoDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoTexto: { color: "#fff", fontWeight: "bold", fontSize: 14 },
   paginaInfo: { alignItems: "center" },
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   },
   totalTexto: { color: "#a0a0b8", fontSize: 12 },
   totalValor: { color: "#bfb4fe", fontSize: 20, fontWeight: "bold" },
-  botaoComprar: { backgroundColor: "#3d3aed", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
+  botaoComprar: { backgroundColor: "#003480", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
   botaoComprarDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoComprarTexto: { color: "#fff", fontWeight: "bold", fontSize: 16 },
 });

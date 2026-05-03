@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     botaoCriarConta: {
         justifyContent: 'center',
         borderRadius: 8,
-        backgroundColor: "#3d3aed",
+        backgroundColor: "#003480",
         height: 40,
     },
 });

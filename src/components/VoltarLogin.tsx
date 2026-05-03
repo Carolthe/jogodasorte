@@ -11,7 +11,7 @@ export default function VoltarLogin() {
         onPress={() => router.replace("/login")}
         style={styles.button}
       >
-        <Ionicons name="arrow-back" size={24} color="#3d3aed" />
+        <Ionicons name="arrow-back" size={24} color="#003480" />
       </Pressable>
     </View>
   );

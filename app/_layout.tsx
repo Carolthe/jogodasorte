@@ -9,7 +9,7 @@ function RootLayout() {
   if (carregando) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0e0e0e" }}>
-        <ActivityIndicator color="#3d3aed" size="large" />
+        <ActivityIndicator color="#003480" size="large" />
       </View>
     );
   }

@@ -11,7 +11,7 @@ type Props = {
 const config: Record<string, { icon: keyof typeof Ionicons.glyphMap; cor: string; corFundo: string; corBorda: string }> = {
   "1º Lugar": {
     icon: "trophy",
-    cor: "#3d3aed",
+    cor: "#003480",
     corFundo: "#2e1a5e",
     corBorda: " ",
   },
@@ -19,7 +19,7 @@ const config: Record<string, { icon: keyof typeof Ionicons.glyphMap; cor: string
     icon: "trophy",
     cor: "#6073ec",
     corFundo: "#1e1a3a",
-    corBorda: "#3d3aed",
+    corBorda: "#003480",
   }
 };
 

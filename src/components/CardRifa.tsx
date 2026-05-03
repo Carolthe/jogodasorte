@@ -110,18 +110,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(58, 79, 237, 0.1)",
     borderWidth: 0.5,
-    borderColor: "#3d3aed",
+    borderColor: "#003480",
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
     marginBottom: 16,
   },
   premioLabel: {
-    color: "#3d3aed",
+    color: "#003480",
     fontSize: 13,
   },
   premioValor: {
-    color: "#6073ec",
+    color: "#416ca9",
     fontSize: 20,
     fontWeight: "bold",
   },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   progressoPercent: {
-    color: "#3d3aed",
+    color: "#003480",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   progressoFill: {
     height: "100%",
-    backgroundColor: "#3d3aed",
+    backgroundColor: "#003480",
     borderRadius: 99,
   },
   progressoFooter: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: "#3d3aed",
+    backgroundColor: "#003480",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
