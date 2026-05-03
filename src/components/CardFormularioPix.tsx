@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingVertical: 20,
     borderWidth: 1,
-    borderColor: "#2e2e50",
+    borderColor: "#2c2c7d",
     paddingBottom: 40,
     marginTop: 15,
   },
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonDisabled: {
-    backgroundColor: "#3d1f7a",
+    backgroundColor: "#1f287a",
     opacity: 0.6,
   },
   buttonText: {

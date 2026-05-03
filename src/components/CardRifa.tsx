@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   premioValor: {
-    color: "#003480",
+    color: "#1b64d2",
     fontSize: 20,
     fontWeight: "bold",
   },

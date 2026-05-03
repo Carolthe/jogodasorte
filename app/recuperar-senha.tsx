@@ -458,7 +458,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   emailDestaque: {
-    color: "#d8b4fe",
+    color: "#7a9dd1",
     fontWeight: "500",
   },
 

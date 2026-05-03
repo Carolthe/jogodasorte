@@ -158,9 +158,9 @@ export default function Rifa() {
         <View style={styles.containerNumeros}>
           {(
             [
-              { label: "Disponível", status: "disponivel" as Filtro, cor: "#003480", qtd: qtdDisponivel },
-              { label: "Reservado", status: "reservado" as Filtro, cor: "#ebc839", qtd: qtdReservado },
-              { label: "Vendido", status: "vendido" as Filtro, cor: "rgb(77, 163, 249)", qtd: qtdVendido },
+              { label: "Disponível", status: "disponivel" as Filtro, cor:"#7a9dd1", qtd: qtdDisponivel },
+              { label: "Reservado", status: "reservado" as Filtro, cor:'#1b64d2' , qtd: qtdReservado },
+              { label: "Vendido", status: "vendido" as Filtro, cor: "#ebc839", qtd: qtdVendido },
             ]
           ).map((item) => (
             <Pressable
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     padding: 15, backgroundColor: "#0e0e0e", borderTopWidth: 0.5, borderTopColor: "#2e2e50",
   },
   totalTexto: { color: "#a0a0b8", fontSize: 12 },
-  totalValor: { color: "#bfb4fe", fontSize: 20, fontWeight: "bold" },
+  totalValor: { color: "#7a9dd1", fontSize: 20, fontWeight: "bold" },
   botaoComprar: { backgroundColor: "#003480", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
   botaoComprarDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoComprarTexto: { color: "#fff", fontWeight: "bold", fontSize: 16 },

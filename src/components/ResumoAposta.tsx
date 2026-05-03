@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   numeroBadge: {
-    backgroundColor: "#2e1a5e",
+    backgroundColor: "#252e67aa",
     borderWidth: 0.5,
     borderColor: "#003480",
     borderRadius: 6,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   numeroTexto: {
-    color: "#9285f8",
+    color: "#1b64d2",
     fontSize: 13,
     fontWeight: "500",
   },
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgba(124, 58, 237, 0.1)",
+    backgroundColor: "rgba(58, 79, 237, 0.1)",
     borderWidth: 0.5,
     borderColor: "#003480",
     borderRadius: 10,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   premioLabel: {
-    color: "#6055f7",
+    color: "#1b64d2",
     fontSize: 14,
   },
   tituloPremio: {
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
   },
 
   premioValor: {
-    color: "#b4bdfe",
+    color: "#1b64d2",
     fontSize: 20,
     fontWeight: "bold",
   },
    premioValor2: {
-    color: "#9e99fe",
+    color: "#1b64d2",
     fontSize: 16,
     paddingVertical: 3,
     fontWeight: "bold",

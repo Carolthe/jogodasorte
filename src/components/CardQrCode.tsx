@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   valor: {
-    color: "#9992fe",
+    color: "#7a9dd1",
     fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",

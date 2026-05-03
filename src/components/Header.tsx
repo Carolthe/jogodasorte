@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         height: 25,
     }, actions: { flexDirection: 'row', gap: 16 },
     sairText: {
-        color: '#210ad1',
+        color: '#1b64d2',
     },
     entrarText: {
         color: 'white'
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         borderRadius: 8,
         borderWidth: 2,
-        borderColor: '#2b0ad150',
+        borderColor: '#003480',
         
     },
     botaoEntrar: {

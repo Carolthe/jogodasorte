@@ -38,7 +38,7 @@ export default function InfoRifa() {
         {/* HEADER */}
         <View style={styles.header}>
           <View style={styles.headerIconBox}>
-            <Ionicons name="information-circle" size={32} color="#a855f7" />
+            <Ionicons name="information-circle" size={32} color="#1b64d2" />
           </View>
           <Text style={styles.titulo}>Regulamento dos Jogos</Text>
           <Text style={styles.subtitulo}>
@@ -49,17 +49,17 @@ export default function InfoRifa() {
         {/* SEÇÃO — PRÊMIOS */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
-            <Ionicons name="trophy" size={16} color="#d8b4fe" />
+            <Ionicons name="trophy" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Duvidas Sobre Prêmios</Text>
           </View>
 
-          <Item numero={1} icon="gift" cor="#d8b4fe">
+          <Item numero={1} icon="gift" cor="#7a9dd1">
             Ao comprar um número, você concorre automaticamente aos 5 prêmios.
           </Item>
-          <Item numero={2} icon="gift" cor="#d8b4fe">
+          <Item numero={2} icon="gift" cor="#7a9dd1">
             O primeiro números concorre a 500 reais, os demias 4 números concorrem a 50 reais cada.
           </Item>
-          <Item numero={3} icon="gift" cor="#d8b4fe">
+          <Item numero={3} icon="gift" cor="#7a9dd1">
             Ao comprar um número, você concorre automaticamente aos 5 prêmios.
           </Item>
         </View>
@@ -67,17 +67,17 @@ export default function InfoRifa() {
         {/* SEÇÃO — SORTEIO */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
-            <Ionicons name="videocam" size={16} color="#d8b4fe" />
+            <Ionicons name="videocam" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Sorteio</Text>
           </View>
 
-          <Item numero={2} icon="logo-tiktok" cor="#d8b4fe">
+          <Item numero={2} icon="logo-tiktok" cor="#7a9dd1">
             O sorteio será realizado pela Caixa Economica Federal.
           </Item>
-          <Item numero={3} icon="link" cor="#a855f7">
+          <Item numero={3} icon="link" cor="#7a9dd1">
             O link .
           </Item>
-          <Item numero={4} icon="time" cor="#a855f7">
+          <Item numero={4} icon="time" cor="#7a9dd1">
              Toda Semana tem um sorteio novo.
           </Item>
         
@@ -86,7 +86,7 @@ export default function InfoRifa() {
         {/* SEÇÃO — GANHADORES */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
-            <Ionicons name="call" size={16} color="#d8b4fe" />
+            <Ionicons name="call" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Contato com os Ganhadores</Text>
           </View>
 
@@ -98,17 +98,17 @@ export default function InfoRifa() {
         {/* SEÇÃO — REDES SOCIAIS */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
-            <Ionicons name="share-social" size={16} color="#d8b4fe" />
+            <Ionicons name="share-social" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Redes Sociais e Suporte</Text>
           </View>
 
-          <Item numero={7} icon="logo-instagram" cor="#a855f7">
+          <Item numero={7} icon="logo-instagram" cor="#7a9dd1">
             Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
           </Item>
-          <Item numero={8} icon="notifications" cor="#a855f7">
+          <Item numero={8} icon="notifications" cor="#7a9dd1">
             Para qualquer outra questão, nos envie mensagem pelo instagram.
           </Item>
-          <Item numero={7} icon="logo-whatsapp" cor="#a855f7">
+          <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
             Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.
           </Item>
 
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: "#1a1a2e",
     borderWidth: 0.5,
-    borderColor: "#003480",
+    borderColor: "#1b64d2",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 12,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#2e2e50",
   },
   secaoTitulo: {
-    color: "#d8b4fe",
+    color: "#7a9dd1",
     fontSize: 15,
     fontWeight: "600",
   },
@@ -252,12 +252,12 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   premioLabel: {
-    color: "#d8b4fe",
+    color: "#7a9dd1",
     fontSize: 13,
     fontWeight: "600",
   },
   premioValor: {
-    color: "#d8b4fe",
+    color: "#7a9dd1",
     fontSize: 22,
     fontWeight: "bold",
   },
