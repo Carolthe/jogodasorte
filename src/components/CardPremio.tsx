@@ -12,12 +12,12 @@ const config: Record<string, { icon: keyof typeof Ionicons.glyphMap; cor: string
   "1º Lugar": {
     icon: "trophy",
     cor: "#003480",
-    corFundo: "#2e1a5e",
+    corFundo: "#231a5e",
     corBorda: " ",
   },
   "outros": {
     icon: "trophy",
-    cor: "#6073ec",
+    cor: "#1b64d2",
     corFundo: "#1e1a3a",
     corBorda: "#003480",
   }

@@ -19,14 +19,14 @@ export default function CardRifa({
   numerosVendidos = 1000,
   onPress,
 }: Props) {
-  const percentual = Math.round((numerosVendidos / totalNumeros) * 100);
+   Math.round((numerosVendidos / totalNumeros) * 100);
 
   return (
     <View style={styles.container}>
 
       {/* BADGE TOPO */}
       <View style={styles.badge}>
-        <Ionicons name="trophy" size={12} color="#6073ec" />
+        <Ionicons name="trophy" size={12} color="#1b64d2" />
         <Text style={styles.badgeText}>Rifa ativa</Text>
       </View>
 
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    backgroundColor: "rgba(124, 58, 237, 0.15)",
+    backgroundColor: "rgba(50, 50, 138, 0.15)",
     borderWidth: 0.5,
-    borderColor: "#6073ec",
+    borderColor: "#416ca9",
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   badgeText: {
-    color: "#2b47ff",
+    color: "#1b64d2",
     fontSize: 11,
     fontWeight: "500",
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgba(58, 79, 237, 0.1)",
+    backgroundColor: "rgba(52, 52, 123, 0.1)",
     borderWidth: 0.5,
     borderColor: "#003480",
     borderRadius: 12,
@@ -117,11 +117,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   premioLabel: {
-    color: "#003480",
+    color: "#1b64d2",
     fontSize: 13,
   },
   premioValor: {
-    color: "#416ca9",
+    color: "#003480",
     fontSize: 20,
     fontWeight: "bold",
   },
