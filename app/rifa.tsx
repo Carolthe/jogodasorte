@@ -26,7 +26,7 @@ export default function Rifa() {
   const [numeros, setNumeros] = useState<Numero[]>([]);
   const [loadingNumeros, setLoadingNumeros] = useState(true);
   const [selecionados, setSelecionados] = useState<number[]>([]);
-  const [pagina, setPagina] = useState(0);
+  // const [pagina, setPagina] = useState(0);
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<Filtro>("todos");
 
@@ -56,22 +56,30 @@ export default function Rifa() {
   }
 
   // ── Filtros ────────────────────────────────────────────────────────────────
+  function formatNumero(n: number | string) {
+    return String(n).padStart(2, "0");
+  }
+
+
   const numerosFiltrados = numeros.filter((n) => {
     const matchBusca = busca.trim()
-      ? String(n.numero).padStart(4, "0").includes(busca.trim())
+      ? formatNumero(n.numero).includes(busca.trim())
       : true;
+
     const matchFiltro = filtro === "todos" ? true : n.status === filtro;
     return matchBusca && matchFiltro;
   });
 
-  const itensPorPagina = 70;
-  const inicio = pagina * itensPorPagina;
-  const fim = inicio + itensPorPagina;
-  const numerosPagina = busca || filtro !== "todos"
-    ? numerosFiltrados
-    : numerosFiltrados.slice(inicio, fim);
+  // const itensPorPagina = 70;
+  // const inicio = pagina * itensPorPagina;
+  // const fim = inicio + itensPorPagina;
+  // const numerosPagina = busca || filtro !== "todos"
+  //   ? numerosFiltrados
+  //   : numerosFiltrados.slice(inicio, fim);
 
-  const precoPorNumero = 20;
+  const numerosPagina = numerosFiltrados;
+
+  const precoPorNumero = 10;
   const total = selecionados.length * precoPorNumero;
 
   // contagens para os boxes
@@ -88,12 +96,12 @@ export default function Rifa() {
     );
   }
 
-  function proximaPagina() {
-    if (fim < numerosFiltrados.length) setPagina((p) => p + 1);
-  }
-  function paginaAnterior() {
-    if (pagina > 0) setPagina((p) => p - 1);
-  }
+  // function proximaPagina() {
+  //   if (fim < numerosFiltrados.length) setPagina((p) => p + 1);
+  // }
+  // function paginaAnterior() {
+  //   if (pagina > 0) setPagina((p) => p - 1);
+  // }
 
   async function handleComprar() {
     if (carregando) return;
@@ -140,19 +148,19 @@ export default function Rifa() {
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
         <VoltarHome />
 
-        <View style={styles.hero}>
+        {/* <View style={styles.hero}>
           <Text style={styles.title}>
-            Escolha seus números da sorte e concorra aos prêmios
+            
           </Text>
-        </View>
+        </View> */}
 
         {/* STATUS — clicável para filtrar */}
         <View style={styles.containerNumeros}>
           {(
             [
-              { label: "Disponível", status: "disponivel" as Filtro, cor: "#2261c5", qtd: qtdDisponivel },
-              { label: "Reservado", status: "reservado" as Filtro, cor: "#a855f7", qtd: qtdReservado },
-              { label: "Vendido", status: "vendido" as Filtro, cor: "#7c3aed", qtd: qtdVendido },
+              { label: "Disponível", status: "disponivel" as Filtro, cor: "#3d3aed", qtd: qtdDisponivel },
+              { label: "Reservado", status: "reservado" as Filtro, cor: "#ebc839", qtd: qtdReservado },
+              { label: "Vendido", status: "vendido" as Filtro, cor: "rgb(77, 163, 249)", qtd: qtdVendido },
             ]
           ).map((item) => (
             <Pressable
@@ -163,7 +171,6 @@ export default function Rifa() {
               ]}
               onPress={() => {
                 setFiltro((prev) => prev === item.status ? "todos" : item.status);
-                setPagina(0);
               }}
             >
               <Text style={[styles.label, { color: item.cor }]}>{item.label}</Text>
@@ -182,7 +189,8 @@ export default function Rifa() {
               placeholderTextColor="#a0a0b8"
               keyboardType="numeric"
               value={busca}
-              onChangeText={(t) => { setBusca(t); setPagina(0); }}
+              onChangeText={setBusca}
+            // onChangeText={(t) => { setBusca(t); setPagina(0); }}
             />
             {busca.length > 0 && (
               <Pressable onPress={() => setBusca("")} style={styles.clearBtn}>
@@ -218,14 +226,16 @@ export default function Rifa() {
               >
                 {isVendido ? (
                   // X para vendido
-                  <Ionicons name="close" size={16} color="#6b21a8" />
+                  <Ionicons name="close" size={16} color="#2135a8" />
                 ) : (
-                  <Text style={[
-                    styles.numeroTexto,
-                    isSelected && styles.numeroTextoSelected,
-                    isReservado && styles.numeroTextoReservado,
-                  ]}>
-                    {String(n.numero).padStart(4, "0")}
+                  <Text
+                    style={[
+                      styles.numeroTexto,
+                      isSelected && styles.numeroTextoSelected,
+                      isReservado && styles.numeroTextoReservado,
+                    ]}
+                  >
+                    {formatNumero(n.numero)}
                   </Text>
                 )}
               </Pressable>
@@ -234,7 +244,7 @@ export default function Rifa() {
         </View>
 
         {/* PAGINAÇÃO — só quando não há busca/filtro */}
-        {!busca && filtro === "todos" && (
+        {/* {!busca && filtro === "todos" && (
           <View style={styles.paginacao}>
             <Pressable
               onPress={paginaAnterior}
@@ -259,7 +269,7 @@ export default function Rifa() {
               <Ionicons name="chevron-forward" size={16} color="#fff" />
             </Pressable>
           </View>
-        )}
+        )} */}
       </ScrollView>
 
       {/* FOOTER */}
@@ -319,7 +329,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6, width: "16.66%", paddingVertical: 10,
     alignItems: "center", borderWidth: 0.5, borderColor: "#2e2e50",
   },
-  numeroSelecionado: { backgroundColor: "#7c3aed", borderColor: "#a855f7" },
+  numeroSelecionado: { backgroundColor: "#3d3aed", borderColor: "#5560f7" },
   numeroReservado: { backgroundColor: "#1a1a2e", opacity: 0.4 },       // opaco
   numeroVendido: { backgroundColor: "#1a0a2e", borderColor: "#4c1d95" }, // mais escuro com X
 
@@ -328,12 +338,12 @@ const styles = StyleSheet.create({
   numeroTextoReservado: { color: "#555" },
 
   paginacao: { flexDirection: "row", justifyContent: "center", gap: 20, alignItems: "center", padding: 20 },
-  botao: { backgroundColor: "#7c3aed", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
+  botao: { backgroundColor: "#3d3aed", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
   botaoDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoTexto: { color: "#fff", fontWeight: "bold", fontSize: 14 },
   paginaInfo: { alignItems: "center" },
   paginaTexto: { color: "#a0a0b8", fontSize: 11 },
-  paginaNumero: { color: "#d8b4fe", fontSize: 14, fontWeight: "bold" },
+  paginaNumero: { color: "#b5b4fe", fontSize: 14, fontWeight: "bold" },
 
   footer: {
     position: "absolute", bottom: 0, left: 0, right: 0,
@@ -341,8 +351,8 @@ const styles = StyleSheet.create({
     padding: 15, backgroundColor: "#0e0e0e", borderTopWidth: 0.5, borderTopColor: "#2e2e50",
   },
   totalTexto: { color: "#a0a0b8", fontSize: 12 },
-  totalValor: { color: "#d8b4fe", fontSize: 20, fontWeight: "bold" },
-  botaoComprar: { backgroundColor: "#7c3aed", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
+  totalValor: { color: "#bfb4fe", fontSize: 20, fontWeight: "bold" },
+  botaoComprar: { backgroundColor: "#3d3aed", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
   botaoComprarDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoComprarTexto: { color: "#fff", fontWeight: "bold", fontSize: 16 },
 });

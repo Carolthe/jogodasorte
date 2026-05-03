@@ -10,7 +10,7 @@ export default function Header() {
         <View style={styles.container}>
             <TouchableOpacity onPress={() => router.replace('/')}>
                 <Image
-                    source={require('@/src/assets/logo.png')}
+                    source={require('@/src/assets/logo2.png')}
                     style={styles.logoImage}
                 />
             </TouchableOpacity>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         height: 25,
     }, actions: { flexDirection: 'row', gap: 16 },
     sairText: {
-        color: '#820AD1',
+        color: '#210ad1',
     },
     entrarText: {
         color: 'white'
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         borderRadius: 8,
         borderWidth: 2,
-        borderColor: '#810ad150',
+        borderColor: '#2b0ad150',
         
     },
     botaoEntrar: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     botaoCriarConta: {
         justifyContent: 'center',
         borderRadius: 8,
-        backgroundColor: '#820AD1',
+        backgroundColor: "#3d3aed",
         height: 40,
     },
 });

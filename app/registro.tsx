@@ -80,14 +80,14 @@ export default function Registro() {
 
       {/* VOLTAR */}
       <TouchableOpacity style={styles.voltarBtn} onPress={() => router.replace("/login")}>
-        <Ionicons name="arrow-back" size={20} color="#a855f7" />
+        <Ionicons name="arrow-back" size={20} color="#3d3aed" />
         <Text style={styles.voltarText}>Voltar</Text>
       </TouchableOpacity>
 
       {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.iconBox}>
-          <Ionicons name="person-add" size={28} color="#a855f7" />
+          <Ionicons name="person-add" size={28} color="#3d3aed" />
         </View>
         <Text style={styles.title}>Criar Conta</Text>
         <Text style={styles.subtitle}>Preencha seus dados para se cadastrar</Text>
@@ -238,7 +238,7 @@ function Field({
   return (
     <View style={styles.fieldWrapper}>
       <View style={styles.labelRow}>
-        <Ionicons name={icon} size={14} color="#a855f7" style={{ marginRight: 5 }} />
+        <Ionicons name={icon} size={14} color="#3d3aed" style={{ marginRight: 5 }} />
         <Text style={styles.label}>{label}</Text>
       </View>
       {children}
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
   },
   voltarText: {
-    color: "#a855f7",
+    color: "#3d3aed",
     fontSize: 14,
     fontWeight: "500",
   },
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: "#1a1a2e",
     borderWidth: 0.5,
-    borderColor: "#7c3aed",
+    borderColor: "#3d3aed",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 12,
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
 
   // BOTÃO
   button: {
-    backgroundColor: "#7c3aed",
+    backgroundColor: "#3d3aed",
     padding: 15,
     borderRadius: 12,
     alignItems: "center",
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   loginHighlight: {
-    color: "#a855f7",
+    color: "#3d3aed",
     fontWeight: "bold",
   },
 });

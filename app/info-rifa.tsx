@@ -4,6 +4,7 @@ import Header from "@/src/components/Header";
 import VoltarHome from "@/src/components/VoltarHome";
 
 const INSTAGRAM_URL = "https://www.instagram.com/rifa_winner/"; // ← substitua
+const WHATSAPP_URL = ""
 
 type ItemProps = {
   numero: number;
@@ -12,7 +13,7 @@ type ItemProps = {
   children: string;
 };
 
-function Item({ numero, icon, cor = "#a855f7", children }: ItemProps) {
+function Item({ numero, icon, cor = "#5558f7", children }: ItemProps) {
   return (
     <View style={styles.item}>
       <View style={[styles.iconBox, { borderColor: cor }]}>
@@ -39,7 +40,7 @@ export default function InfoRifa() {
           <View style={styles.headerIconBox}>
             <Ionicons name="information-circle" size={32} color="#a855f7" />
           </View>
-          <Text style={styles.titulo}>Regulamento da Rifa</Text>
+          <Text style={styles.titulo}>Regulamento dos Jogos</Text>
           <Text style={styles.subtitulo}>
             Tire suas duvidas
           </Text>
@@ -53,30 +54,14 @@ export default function InfoRifa() {
           </View>
 
           <Item numero={1} icon="gift" cor="#d8b4fe">
-            Ao participar da rifa, você concorre automaticamente a dois prêmios sorteados no mesmo dia, um logo após o outro.
+            Ao comprar um número, você concorre automaticamente aos 5 prêmios.
           </Item>
-
-          <View style={styles.premioCard}>
-            <View style={styles.premioHeader}>
-              <Ionicons name="trophy" size={14} color="#d8b4fe" />
-              <Text style={styles.premioLabel}>1º Prêmio</Text>
-            </View>
-            <Text style={styles.premioValor}>R$ 15.000</Text>
-            <Text style={styles.premioDesc}>
-              Enviado diretamente para a chave PIX cadastrada no momento da compra.
-            </Text>
-          </View>
-
-          <View style={[styles.premioCard, { borderColor: "#7c3aed" }]}>
-            <View style={styles.premioHeader}>
-              <Ionicons name="medal" size={14} color="#a855f7" />
-              <Text style={[styles.premioLabel, { color: "#a855f7" }]}>2º Prêmio</Text>
-            </View>
-            <Text style={[styles.premioValor, { color: "#a855f7" }]}>Viagem + R$ 2.000</Text>
-            <Text style={styles.premioDesc}>
-              Duas passagens aéreas para o Rio de Janeiro, hotel pago por 2 dias com café da manhã incluso para duas pessoas, mais R$ 2.000 em dinheiro enviados via PIX.
-            </Text>
-          </View>
+          <Item numero={2} icon="gift" cor="#d8b4fe">
+            O primeiro números concorre a 500 reais, os demias 4 números concorrem a 50 reais cada.
+          </Item>
+          <Item numero={3} icon="gift" cor="#d8b4fe">
+            Ao comprar um número, você concorre automaticamente aos 5 prêmios.
+          </Item>
         </View>
 
         {/* SEÇÃO — SORTEIO */}
@@ -87,17 +72,15 @@ export default function InfoRifa() {
           </View>
 
           <Item numero={2} icon="logo-tiktok" cor="#d8b4fe">
-            O sorteio será realizado ao vivo na plataforma TikTok.
+            O sorteio será realizado pela Caixa Economica Federal.
           </Item>
           <Item numero={3} icon="link" cor="#a855f7">
-            O link da transmissão será publicado aqui na plataforma e no instagram.
+            O link .
           </Item>
           <Item numero={4} icon="time" cor="#a855f7">
-            O sorteio ocorrerá o mais breve possível, assim que todos os números forem vendidos.
+             Toda Semana tem um sorteio novo.
           </Item>
-          <Item numero={5} icon="notifications" cor="#a855f7">
-            Fique atento a plataforma para não perder nenhuma novidade, acesse  também o nosso instagram.
-          </Item>
+        
         </View>
 
         {/* SEÇÃO — GANHADORES */}
@@ -119,11 +102,14 @@ export default function InfoRifa() {
             <Text style={styles.secaoTitulo}>Redes Sociais e Suporte</Text>
           </View>
 
-          <Item numero={7} icon="logo-instagram" cor="#e1306c">
+          <Item numero={7} icon="logo-instagram" cor="#a855f7">
             Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
           </Item>
-          <Item numero={8} icon="notifications" cor="#e1306c">
+          <Item numero={8} icon="notifications" cor="#a855f7">
             Para qualquer outra questão, nos envie mensagem pelo instagram.
+          </Item>
+          <Item numero={7} icon="logo-whatsapp" cor="#a855f7">
+            Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.
           </Item>
 
           <TouchableOpacity
@@ -135,9 +121,7 @@ export default function InfoRifa() {
             <Text style={styles.linkBtnTexto}>Acessar Instagram</Text>
           </TouchableOpacity>
 
-          {/* <Item numero={8} icon="chatbubble-ellipses" cor="#a855f7">
-            Tem alguma dúvida? Não hesite em nos enviar uma mensagem. Estamos aqui para ajudar!
-          </Item>
+  
 
           <TouchableOpacity
             style={[styles.linkBtn, { backgroundColor: "#25D366" }]}
@@ -145,8 +129,8 @@ export default function InfoRifa() {
             activeOpacity={0.8}
           >
             <Ionicons name="logo-whatsapp" size={18} color="#fff" />
-            <Text style={styles.linkBtnTexto}>Falar no WhatsApp</Text>
-          </TouchableOpacity> */}
+            <Text style={styles.linkBtnTexto}>Entrar no WhatsApp</Text>
+          </TouchableOpacity>
         </View>
 
         {/* RODAPÉ */}
@@ -182,7 +166,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: "#1a1a2e",
     borderWidth: 0.5,
-    borderColor: "#7c3aed",
+    borderColor: "#3d3aed",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 12,
@@ -289,7 +273,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: "#7c3aed",
+    backgroundColor: "#3d3aed",
     paddingVertical: 12,
     borderRadius: 10,
   },

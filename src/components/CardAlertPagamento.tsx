@@ -17,7 +17,7 @@ export default function CardAlertPagamento() {
       </Text>
 
       <View style={styles.infoBox}>
-        <Ionicons name="information-circle-outline" size={18} color="#a855f7" />
+        <Ionicons name="information-circle-outline" size={18} color="#6b55f7" />
         <Text style={styles.infoText}>Processamento seguro</Text>
       </View>
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
   },
   infoText: {
-    color: "#d8b4fe",
+    color: "#8578f7",
     fontSize: 13,
     marginLeft: 6,
   },

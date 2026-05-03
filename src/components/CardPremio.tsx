@@ -5,28 +5,30 @@ type Props = {
   titulo?: string;
   valor?: string;
   imagem?: ImageSourcePropType;
+  tipo?: "primeiro" | "outros";
 };
 
 const config: Record<string, { icon: keyof typeof Ionicons.glyphMap; cor: string; corFundo: string; corBorda: string }> = {
-  "1º Prêmio": {
+  "1º Lugar": {
     icon: "trophy",
-    cor: "#d8b4fe",
+    cor: "#3d3aed",
     corFundo: "#2e1a5e",
     corBorda: " ",
   },
-  "2º Prêmio": {
-    icon: "medal",
-    cor: "#a855f7",
+  "outros": {
+    icon: "trophy",
+    cor: "#6073ec",
     corFundo: "#1e1a3a",
-    corBorda: "#6d28d9",
+    corBorda: "#3d3aed",
   }
 };
 
 export default function CardPremio({
   titulo = "1º Prêmio",
   valor = "R$ 15.000",
+  tipo = "outros",
 }: Props) {
-  const tema = config[titulo] ?? config["3º Prêmio"];
+  const tema = config[tipo];
 
   return (
     <View style={[styles.card]}>

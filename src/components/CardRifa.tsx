@@ -26,7 +26,7 @@ export default function CardRifa({
 
       {/* BADGE TOPO */}
       <View style={styles.badge}>
-        <Ionicons name="trophy" size={12} color="#d8b4fe" />
+        <Ionicons name="trophy" size={12} color="#6073ec" />
         <Text style={styles.badgeText}>Rifa ativa</Text>
       </View>
 
@@ -41,19 +41,6 @@ export default function CardRifa({
           <Text style={styles.premioValor}>{textoExtra}</Text>
         </View>
       )}
-
-      {/* PROGRESSO */}
-      {/* <View style={styles.progressoHeader}>
-        <Text style={styles.progressoLabel}>Números vendidos</Text>
-        <Text style={styles.progressoPercent}>{percentual}%</Text>
-      </View>
-      <View style={styles.progressoBar}>
-        <View style={[styles.progressoFill, { width: `${percentual}%` }]} />
-      </View>
-      <View style={styles.progressoFooter}>
-        <Text style={styles.progressoSub}>{numerosVendidos} vendidos</Text>
-        <Text style={styles.progressoSub}>{totalNumeros - numerosVendidos} disponíveis</Text>
-      </View> */}
 
       {/* BOTÃO */}
       <TouchableOpacity
@@ -87,7 +74,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     backgroundColor: "rgba(124, 58, 237, 0.15)",
     borderWidth: 0.5,
-    borderColor: "#7c3aed",
+    borderColor: "#6073ec",
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -95,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   badgeText: {
-    color: "#d8b4fe",
+    color: "#2b47ff",
     fontSize: 11,
     fontWeight: "500",
   },
@@ -121,20 +108,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgba(124, 58, 237, 0.10)",
+    backgroundColor: "rgba(58, 79, 237, 0.1)",
     borderWidth: 0.5,
-    borderColor: "#7c3aed",
+    borderColor: "#3d3aed",
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
     marginBottom: 16,
   },
   premioLabel: {
-    color: "#a855f7",
+    color: "#3d3aed",
     fontSize: 13,
   },
   premioValor: {
-    color: "#d8b4fe",
+    color: "#6073ec",
     fontSize: 20,
     fontWeight: "bold",
   },
@@ -149,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   progressoPercent: {
-    color: "#a855f7",
+    color: "#3d3aed",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -161,7 +148,7 @@ const styles = StyleSheet.create({
   },
   progressoFill: {
     height: "100%",
-    backgroundColor: "#7c3aed",
+    backgroundColor: "#3d3aed",
     borderRadius: 99,
   },
   progressoFooter: {
@@ -176,7 +163,7 @@ const styles = StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: "#7c3aed",
+    backgroundColor: "#3d3aed",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",

@@ -8,29 +8,32 @@ import Carrossel from '@/src/components/Carrossel';
 export default function Home() {
     const router = useRouter()
     const banners = [
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777218413/2premio_yjegou.png",
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777218413/1premio_egyakd.png",
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777218414/doispremio_sfomuy.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777757025/ChatGPT_Image_May_2_2026_10_19_15_PM_s8alnv.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777757337/ChatGPT_Image_May_2_2026_10_28_32_PM_zlzhrt.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777757658/ChatGPT_Image_May_2_2026_10_33_58_PM_toiti7.png",
     ];
     return (
         <ScrollView style={styles.container}>
             <Header />
             <Carrossel imagens={banners} intervalo={4000} altura={210} />
-            <Text style={styles.text}>Concorra a Prêmios Incriveis</Text>
+            <Text style={styles.text}>Data e hora do Sorteio:</Text>
+            <Text style={styles.descricao}> 21/10/2026 ás 20 horas</Text>
             <View style={styles.containerCardPremio}>
                 <CardPremio
-                    titulo="1º Prêmio"
-                    valor="R$ 15.000"
+                    titulo="1º Lugar"
+                    valor="R$ 500,00"
                     imagem={require('@/src/assets/trofeu.png')}
                 />
                 <CardPremio
-                    titulo="2º Prêmio"
-                    valor="Viagem"
+                    titulo="2º ao 5º"
+                    valor="R$ 50,00"
+                     tipo="outros"
                     imagem={require('@/src/assets/trofeu2.png')}
                 />
+                
             </View>
             <View style={styles.containerCardRifa}>
-                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha um Número e tenha chance de ganhar dois prêmios' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 20:' textoBotao="Escolher" />
+                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 10:' textoBotao="Escolher" />
             </View>
             <Text style={styles.textInfo} onPress={() => router.replace('/info-rifa')}>Saber mais informações</Text>
         </ScrollView>
@@ -49,6 +52,12 @@ const styles = StyleSheet.create({
     containerCardRifa: {
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    descricao: {
+        color: '#b6b4b4',
+        textAlign: 'center',
+        fontSize: 19,
+        fontWeight: '500',
     },
     textInfo: {
         color: '#d1d1d1',

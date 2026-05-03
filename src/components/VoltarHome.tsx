@@ -11,7 +11,7 @@ export default function VoltarHome() {
         onPress={() => router.replace("/")}
         style={styles.button}
       >
-        <Ionicons name="arrow-back" size={24} color="#a855f7" />
+        <Ionicons name="arrow-back" size={24} color="#3d3aed" />
       </Pressable>
     </View>
   );
