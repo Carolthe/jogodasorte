@@ -158,9 +158,9 @@ export default function Rifa() {
         <View style={styles.containerNumeros}>
           {(
             [
-              { label: "Disponível", status: "disponivel" as Filtro, cor:"#7a9dd1", qtd: qtdDisponivel },
-              { label: "Reservado", status: "reservado" as Filtro, cor:'#1b64d2' , qtd: qtdReservado },
-              { label: "Vendido", status: "vendido" as Filtro, cor: "#ebc839", qtd: qtdVendido },
+              { label: "Disponível", status: "disponivel" as Filtro, cor:"#ffffff", qtd: qtdDisponivel },
+              { label: "Reservado", status: "reservado" as Filtro, cor:'#ffffff' , qtd: qtdReservado },
+              { label: "Vendido", status: "vendido" as Filtro, cor: "#ffffff", qtd: qtdVendido },
             ]
           ).map((item) => (
             <Pressable
