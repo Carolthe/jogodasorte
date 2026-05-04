@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(52, 52, 123, 0.1)",
     borderWidth: 0.5,
-    borderColor: "#003480",
+    borderColor: "#195ec7",
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   progressoPercent: {
-    color: "#003480",
+    color: "#195ec7",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   progressoFill: {
     height: "100%",
-    backgroundColor: "#003480",
+    backgroundColor: "#195ec7",
     borderRadius: 99,
   },
   progressoFooter: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: "#003480",
+    backgroundColor: "#195ec7",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",

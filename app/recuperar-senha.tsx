@@ -85,7 +85,7 @@ export default function RecuperarSenha() {
           style={styles.voltarBtn}
           onPress={() => etapa === "email" ? router.replace("/login") : setEtapa(etapa === "nova-senha" ? "codigo" : "email")}
         >
-          <Ionicons name="arrow-back" size={20} color="#003480" />
+          <Ionicons name="arrow-back" size={20} color="#195ec7" />
           <Text style={styles.voltarText}>Voltar</Text>
         </TouchableOpacity>
       )}
@@ -124,7 +124,7 @@ export default function RecuperarSenha() {
         <>
           <View style={styles.header}>
             <View style={styles.iconBox}>
-              <Ionicons name="mail-outline" size={30} color="#003480" />
+              <Ionicons name="mail-outline" size={30} color="#195ec7" />
             </View>
             <Text style={styles.title}>Recuperar Senha</Text>
             <Text style={styles.subtitle}>
@@ -169,7 +169,7 @@ export default function RecuperarSenha() {
         <>
           <View style={styles.header}>
             <View style={styles.iconBox}>
-              <Ionicons name="keypad-outline" size={30} color="#003480" />
+              <Ionicons name="keypad-outline" size={30} color="#195ec7" />
             </View>
             <Text style={styles.title}>Digite o Código</Text>
             <Text style={styles.subtitle}>
@@ -209,7 +209,7 @@ export default function RecuperarSenha() {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.reenviarBtn} onPress={handleEnviarEmail}>
-            <Ionicons name="refresh-outline" size={14} color="#003480" />
+            <Ionicons name="refresh-outline" size={14} color="#195ec7" />
             <Text style={styles.reenviarText}>Reenviar código</Text>
           </TouchableOpacity>
         </>
@@ -220,7 +220,7 @@ export default function RecuperarSenha() {
         <>
           <View style={styles.header}>
             <View style={styles.iconBox}>
-              <Ionicons name="lock-open-outline" size={30} color="#003480" />
+              <Ionicons name="lock-open-outline" size={30} color="#195ec7" />
             </View>
             <Text style={styles.title}>Nova Senha</Text>
             <Text style={styles.subtitle}>
@@ -324,7 +324,7 @@ function ErroBox({ msg }: { msg: string }) {
 function LabelIcon({ icon, label }: { icon: keyof typeof Ionicons.glyphMap; label: string }) {
   return (
     <View style={styles.labelRow}>
-      <Ionicons name={icon} size={14} color="#003480" style={{ marginRight: 5 }} />
+      <Ionicons name={icon} size={14} color="#195ec7" style={{ marginRight: 5 }} />
       <Text style={styles.label}>{label}</Text>
     </View>
   );
@@ -338,7 +338,7 @@ function ForcaSenha({ senha }: { senha: string }) {
     : 3;
 
   const labels = ["", "Fraca", "Razoável", "Boa", "Forte"];
-  const cores  = ["#2e2e50", "#f87171", "#fb923c", "#003480", "#22c55e"];
+  const cores  = ["#2e2e50", "#f87171", "#fb923c", "#195ec7", "#22c55e"];
 
   if (senha.length === 0) return null;
 
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   voltarText: {
-    color: "#003480",
+    color: "#195ec7",
     fontSize: 14,
     fontWeight: "500",
   },
@@ -407,8 +407,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   stepCircleAtivo: {
-    backgroundColor: "#003480",
-    borderColor: "#003480",
+    backgroundColor: "#195ec7",
+    borderColor: "#195ec7",
   },
   stepCircleDone: {
     backgroundColor: "#22c55e",
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: "#1a1a2e",
     borderWidth: 0.5,
-    borderColor: "#003480",
+    borderColor: "#195ec7",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 14,
@@ -549,7 +549,7 @@ const styles = StyleSheet.create({
 
   // BOTÃO
   button: {
-    backgroundColor: "#003480",
+    backgroundColor: "#195ec7",
     padding: 15,
     borderRadius: 12,
     alignItems: "center",
@@ -575,7 +575,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   reenviarText: {
-    color: "#003480",
+    color: "#195ec7",
     fontSize: 14,
   },
 

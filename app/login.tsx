@@ -59,14 +59,14 @@ export default function Login() {
 
       {/* VOLTAR */}
       <TouchableOpacity style={styles.voltarBtn} onPress={() => router.replace("/")}>
-        <Ionicons name="arrow-back" size={20} color="#003480" />
+        <Ionicons name="arrow-back" size={20} color="#195ec7" />
         <Text style={styles.voltarText}>Voltar</Text>
       </TouchableOpacity>
 
       {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.iconBox}>
-          <Ionicons name="person-circle-outline" size={32} color="#003480" />
+          <Ionicons name="person-circle-outline" size={32} color="#195ec7" />
         </View>
         <Text style={styles.title}>Entrar</Text>
         <Text style={styles.subtitle}>
@@ -85,7 +85,7 @@ export default function Login() {
       {/* CAMPO NOME */}
       <View style={styles.fieldWrapper}>
         <View style={styles.labelRow}>
-          <Ionicons name="person-outline" size={14} color="#003480" style={{ marginRight: 5 }} />
+          <Ionicons name="person-outline" size={14} color="#195ec7" style={{ marginRight: 5 }} />
           <Text style={styles.label}>Email</Text>
         </View>
         <TextInput
@@ -102,7 +102,7 @@ export default function Login() {
       {/* CAMPO SENHA */}
       <View style={styles.fieldWrapper}>
         <View style={styles.labelRow}>
-          <Ionicons name="lock-closed-outline" size={14} color="#003480" style={{ marginRight: 5 }} />
+          <Ionicons name="lock-closed-outline" size={14} color="#195ec7" style={{ marginRight: 5 }} />
           <Text style={styles.label}>Senha</Text>
         </View>
         <View style={styles.senhaRow}>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   voltarText: {
-    color: "#003480",
+    color: "#195ec7",
     fontSize: 14,
     fontWeight: "500",
   },
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: "#1a1a2e",
     borderWidth: 0.5,
-    borderColor: "#003480",
+    borderColor: "#195ec7",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 14,
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
 
   // BOTÃO
   button: {
-    backgroundColor: "#003480",
+    backgroundColor: "#195ec7",
     padding: 15,
     borderRadius: 12,
     alignItems: "center",
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   },
   registerHighlight: {
-    color: "#003480",
+    color: "#195ec7",
     fontWeight: "bold",
   },
 });
