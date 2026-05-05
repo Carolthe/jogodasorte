@@ -69,16 +69,16 @@ export default function InfoRifa() {
             <Text style={styles.secaoTitulo}>Sorteio</Text>
           </View>
 
-          <Item numero={2} icon="logo-youtube" cor="#7a9dd1">
+          <Item numero={3} icon="logo-youtube" cor="#7a9dd1">
             O sorteio será realizado pelo canal Paltites Xande JB.
           </Item>
-          <Item numero={3} icon="link" cor="#7a9dd1">
+          <Item numero={4} icon="link" cor="#7a9dd1">
             <Text style={styles.youtubelink} onPress={() => Linking.openURL(YOUTUBE_URL)}>
               Acesse pelo YouTube, Clique aqui.
             </Text>
           </Item>
-          <Item numero={4} icon="time" cor="#7a9dd1">
-            O sorteio ocorera assim que a banca for fechada (Nós horarios 9hr, 11hr, 14hr, 16hr, 18hr e 21hr ao domingo).
+          <Item numero={5} icon="time" cor="#7a9dd1">
+            O sorteio ocorrerá assim que a banca for fechada (Nós horarios 9hr, 11hr, 14hr, 16hr, 18hr e 21hr ao domingo).
           </Item>
 
         </View>
@@ -108,7 +108,7 @@ export default function InfoRifa() {
           <Item numero={8} icon="notifications" cor="#7a9dd1">
             Para qualquer outra questão, nos envie mensagem pelo instagram.
           </Item>
-          <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
+          <Item numero={9} icon="logo-whatsapp" cor="#7a9dd1">
             Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.
           </Item>
 
