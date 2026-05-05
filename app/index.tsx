@@ -16,8 +16,8 @@ export default function Home() {
         <ScrollView style={styles.container}>
             <Header />
             <Carrossel imagens={banners} intervalo={4000} altura={210} />
-            <Text style={styles.text}>Data e hora do Sorteio:</Text>
-            <Text style={styles.descricao}> 21/10/2026 ás 20 horas</Text>
+            <Text style={styles.text}>Sorteio realizado assim que a banca fecha</Text>
+            {/* <Text style={styles.descricao}>Concorra e ganhe</Text> */}
             <View style={styles.containerCardPremio}>
                 <CardPremio
                     titulo="1º Lugar"
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 19,
         fontWeight: '500',
+        marginHorizontal: 20,
     },
     textInfo: {
         color: '#d1d1d1',
