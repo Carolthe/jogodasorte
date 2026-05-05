@@ -30,30 +30,54 @@ export default function CardQrCode({ valor }: Props) {
   const [processando, setProcessando] = useState(false);
   const [confirmado, setConfirmado] = useState(false);
 
+  // TIMER 15 MIN
+  const [tempoRestante, setTempoRestante] = useState(15 * 60);
+
   const fadeAnim = useState(new Animated.Value(0))[0];
 
-useEffect(() => {
-  async function carregarPix() {
-    try {
-      const response = await api.get<QrCodeData>("/apostas/qrcode-pix");
-      const data = response.data;
+  useEffect(() => {
+    async function carregarPix() {
+      try {
+        const response = await api.get<QrCodeData>("/apostas/qrcode-pix");
+        const data = response.data;
 
-      if (data?.chave_pix) {
-        setPixKey(data.chave_pix);
-      }
+        if (data?.chave_pix) {
+          setPixKey(data.chave_pix);
+        }
 
-      if (data?.qr_code) {
-        setQrCodeImage({ uri: data.qr_code.trim() });
+        if (data?.qr_code) {
+          setQrCodeImage({ uri: data.qr_code.trim() });
+        }
+      } catch (error) {
+        console.log("Erro ao buscar PIX:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log("Erro ao buscar PIX:", error);
-    } finally {
-      setLoading(false);
     }
-  }
 
-  carregarPix();
-}, []);
+    carregarPix();
+  }, []);
+
+  // TIMER COUNTDOWN
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setTempoRestante((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalo);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalo);
+  }, []);
+
+  const formatarTempo = (segundos: number) => {
+    const min = Math.floor(segundos / 60);
+    const sec = segundos % 60;
+    return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+  };
 
   const handleCopy = async () => {
     await Clipboard.setStringAsync(pixKey);
@@ -111,6 +135,7 @@ useEffect(() => {
         <Text style={styles.pixKey} numberOfLines={1}>
           {pixKey}
         </Text>
+
         <TouchableOpacity
           style={[styles.copyButton, copiado && styles.copyButtonActive]}
           onPress={handleCopy}
@@ -128,13 +153,28 @@ useEffect(() => {
         <Text style={styles.copiadoText}>Código copiado</Text>
       </Animated.View>
 
+      {/* TIMER */}
+      <Text style={styles.timer}>
+        Tempo para efetuar o pix: {formatarTempo(tempoRestante)}
+      </Text>
+
       <TouchableOpacity
-        style={styles.confirmButton}
+        style={[
+          styles.confirmButton,
+          tempoRestante === 0 && { backgroundColor: "#555" },
+        ]}
         onPress={handleConfirm}
         activeOpacity={0.8}
+        disabled={tempoRestante === 0}
       >
         <Text style={styles.confirmText}>
-          {confirmado ? "Obrigado!" : processando ? "Processando..." : "Confirmar Pagamento"}
+          {tempoRestante === 0
+            ? "Tempo expirado"
+            : confirmado
+            ? "Obrigado!"
+            : processando
+            ? "Processando..."
+            : "Confirmar Pagamento"}
         </Text>
       </TouchableOpacity>
 
@@ -221,5 +261,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  timer: {
+    color: "#f8f8f8",
+    fontSize: 16,
+    textAlign: "center",
+   
+    fontWeight: "bold",
   },
 });
