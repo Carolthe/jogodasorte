@@ -8,9 +8,9 @@ import Carrossel from '@/src/components/Carrossel';
 export default function Home() {
     const router = useRouter()
     const banners = [
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777757025/ChatGPT_Image_May_2_2026_10_19_15_PM_s8alnv.png",
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777757337/ChatGPT_Image_May_2_2026_10_28_32_PM_zlzhrt.png",
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777757658/ChatGPT_Image_May_2_2026_10_33_58_PM_toiti7.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_16_57_38_qpoufs.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_16_59_47_ut3pnq.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_17_03_28_sylept.png",
     ];
     return (
         <ScrollView style={styles.container}>
@@ -33,7 +33,7 @@ export default function Home() {
                 
             </View>
             <View style={styles.containerCardRifa}>
-                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 10:' textoBotao="Escolher" />
+                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 10' textoBotao="Escolher" />
             </View>
             <Text style={styles.textInfo} onPress={() => router.replace('/info-rifa')}>Saber mais informações</Text>
         </ScrollView>

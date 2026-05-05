@@ -3,14 +3,15 @@ import { Ionicons } from "@expo/vector-icons";
 import Header from "@/src/components/Header";
 import VoltarHome from "@/src/components/VoltarHome";
 
-const INSTAGRAM_URL = "https://www.instagram.com/rifa_winner/"; // ← substitua
-const WHATSAPP_URL = ""
+const INSTAGRAM_URL = "https://www.instagram.com/sorte_winner/"; // ← substitua
+const WHATSAPP_URL = "https://chat.whatsapp.com/Hf8uR2zqibu82E1tTn0bgc"
+const YOUTUBE_URL = "https://youtube.com/@1palpitesxandejb?si=0nNAxn2Tq316r8vK";
 
 type ItemProps = {
   numero: number;
   icon: keyof typeof Ionicons.glyphMap;
   cor?: string;
-  children: string;
+  children: React.ReactNode;
 };
 
 function Item({ numero, icon, cor = "#5558f7", children }: ItemProps) {
@@ -59,9 +60,6 @@ export default function InfoRifa() {
           <Item numero={2} icon="gift" cor="#7a9dd1">
             O primeiro números concorre a 500 reais, os demias 4 números concorrem a 50 reais cada.
           </Item>
-          <Item numero={3} icon="gift" cor="#7a9dd1">
-            Ao comprar um número, você concorre automaticamente aos 5 prêmios.
-          </Item>
         </View>
 
         {/* SEÇÃO — SORTEIO */}
@@ -71,16 +69,18 @@ export default function InfoRifa() {
             <Text style={styles.secaoTitulo}>Sorteio</Text>
           </View>
 
-          <Item numero={2} icon="logo-tiktok" cor="#7a9dd1">
-            O sorteio será realizado pela Caixa Economica Federal.
+          <Item numero={2} icon="logo-youtube" cor="#7a9dd1">
+            O sorteio será realizado pelo canal Paltites Xande JB.
           </Item>
           <Item numero={3} icon="link" cor="#7a9dd1">
-            O link .
+            <Text style={styles.youtubelink} onPress={() => Linking.openURL(YOUTUBE_URL)}>
+              Acesse pelo YouTube, Clique aqui.
+            </Text>
           </Item>
           <Item numero={4} icon="time" cor="#7a9dd1">
-             Toda Semana tem um sorteio novo.
+            O sorteio ocorera assim que a banca for fechada (Nós horarios 9hr, 11hr, 14hr, 16hr, 18hr e 21hr ao domingo).
           </Item>
-        
+
         </View>
 
         {/* SEÇÃO — GANHADORES */}
@@ -121,7 +121,7 @@ export default function InfoRifa() {
             <Text style={styles.linkBtnTexto}>Acessar Instagram</Text>
           </TouchableOpacity>
 
-  
+
 
           <TouchableOpacity
             style={[styles.linkBtn, { backgroundColor: "#25D366" }]}
@@ -137,7 +137,7 @@ export default function InfoRifa() {
         <View style={styles.rodape}>
           <Ionicons name="shield-checkmark" size={16} color="#22c55e" />
           <Text style={styles.rodapeTexto}>
-            Rifa segura e transparente. Boa sorte a todos os participantes!
+            Sorteio segura e transparente. Boa sorte a todos os participantes!
           </Text>
         </View>
 
@@ -235,6 +235,11 @@ const styles = StyleSheet.create({
     color: "#e2e2f0",
     fontSize: 14,
     lineHeight: 20,
+  },
+  youtubelink: {
+    color: '',
+    textDecorationLine: 'underline',
+    textDecorationColor: '#ffffff'
   },
 
   // CARDS DE PRÊMIO
