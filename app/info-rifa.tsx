@@ -58,7 +58,7 @@ export default function InfoRifa() {
             Ao comprar um número, você concorre automaticamente aos 5 prêmios.
           </Item>
           <Item numero={2} icon="gift" cor="#7a9dd1">
-            O primeiro números concorre a 500 reais, os demias 4 números concorrem a 50 reais cada.
+            O primeiro números concorre a 500 reais, os demais 4 números concorrem a 50 reais cada.
           </Item>
         </View>
 
