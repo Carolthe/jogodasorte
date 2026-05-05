@@ -31,7 +31,7 @@ export default function CardQrCode({ valor }: Props) {
   const [confirmado, setConfirmado] = useState(false);
 
   // TIMER 15 MIN
-  const [tempoRestante, setTempoRestante] = useState(15 * 60);
+  const [tempoRestante, setTempoRestante] = useState(8 * 60);
 
   const fadeAnim = useState(new Animated.Value(0))[0];
 
