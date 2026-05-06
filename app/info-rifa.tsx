@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  Platform,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Header from "@/src/components/Header";
 import VoltarHome from "@/src/components/VoltarHome";
@@ -7,17 +15,11 @@ const INSTAGRAM_URL = "https://www.instagram.com/sorte_winner/";
 const WHATSAPP_URL = "https://chat.whatsapp.com/Hf8uR2zqibu82E1tTn0bgc";
 const YOUTUBE_URL = "https://youtube.com/@1palpitesxandejb?si=0nNAxn2Tq316r8vK";
 
-// 🔥 FUNÇÃO CORRIGIDA (WEB + MOBILE)
+// 🔥 MOBILE ONLY (web usa <a>)
 const openLink = async (url: string) => {
-  if (Platform.OS === "web") {
-    window.open(url, "_blank", "noopener,noreferrer");
-  } else {
-    const supported = await Linking.canOpenURL(url);
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      console.log("Não foi possível abrir:", url);
-    }
+  const supported = await Linking.canOpenURL(url);
+  if (supported) {
+    await Linking.openURL(url);
   }
 };
 
@@ -42,6 +44,24 @@ function Item({ numero, icon, cor = "#5558f7", children }: ItemProps) {
   );
 }
 
+// 🔥 COMPONENTE LINK UNIVERSAL (resolve 100% o about:blank)
+const ExternalLink = ({ url, children }: { url: string; children: React.ReactNode }) => {
+  if (Platform.OS === "web") {
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: "none" }}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return <TouchableOpacity onPress={() => openLink(url)}>{children}</TouchableOpacity>;
+};
+
 export default function InfoRifa() {
   return (
     <ScrollView style={styles.screen} contentContainerStyle={{ paddingBottom: 40 }}>
@@ -49,16 +69,13 @@ export default function InfoRifa() {
       <VoltarHome />
 
       <View style={styles.container}>
-
         {/* HEADER */}
         <View style={styles.header}>
           <View style={styles.headerIconBox}>
             <Ionicons name="information-circle" size={32} color="#1b64d2" />
           </View>
           <Text style={styles.titulo}>Regulamento dos Jogos</Text>
-          <Text style={styles.subtitulo}>
-            Tire suas duvidas
-          </Text>
+          <Text style={styles.subtitulo}>Tire suas duvidas</Text>
         </View>
 
         {/* SORTEIO */}
@@ -73,9 +90,9 @@ export default function InfoRifa() {
           </Item>
 
           <Item numero={2} icon="link" cor="#7a9dd1">
-            <Text style={styles.youtubelink} onPress={() => openLink(YOUTUBE_URL)}>
-              Acesse pelo YouTube, Clique aqui.
-            </Text>
+            <ExternalLink url={YOUTUBE_URL}>
+              <Text style={styles.linkTexto}>Acesse pelo YouTube, clique aqui</Text>
+            </ExternalLink>
           </Item>
 
           <Item numero={3} icon="time" cor="#7a9dd1">
@@ -95,28 +112,28 @@ export default function InfoRifa() {
           </Item>
         </View>
 
-        {/* REDES */}
+        {/* REDES SOCIAIS */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
             <Ionicons name="share-social" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Redes Sociais</Text>
           </View>
 
-          <TouchableOpacity
-            style={styles.linkBtn}
-            onPress={() => openLink(INSTAGRAM_URL)}
-          >
-            <Ionicons name="logo-instagram" size={18} color="#fff" />
-            <Text style={styles.linkBtnTexto}>Acessar Instagram</Text>
-          </TouchableOpacity>
+          {/* Instagram */}
+          <ExternalLink url={INSTAGRAM_URL}>
+            <View style={styles.linkBtn}>
+              <Ionicons name="logo-instagram" size={18} color="#fff" />
+              <Text style={styles.linkBtnTexto}>Acessar Instagram</Text>
+            </View>
+          </ExternalLink>
 
-          <TouchableOpacity
-            style={[styles.linkBtn, { backgroundColor: "#25D366" }]}
-            onPress={() => openLink(WHATSAPP_URL)}
-          >
-            <Ionicons name="logo-whatsapp" size={18} color="#fff" />
-            <Text style={styles.linkBtnTexto}>Entrar no WhatsApp</Text>
-          </TouchableOpacity>
+          {/* WhatsApp */}
+          <ExternalLink url={WHATSAPP_URL}>
+            <View style={[styles.linkBtn, { backgroundColor: "#25D366" }]}>
+              <Ionicons name="logo-whatsapp" size={18} color="#fff" />
+              <Text style={styles.linkBtnTexto}>Entrar no WhatsApp</Text>
+            </View>
+          </ExternalLink>
         </View>
 
         {/* RODAPÉ */}
@@ -126,7 +143,6 @@ export default function InfoRifa() {
             Sorteio seguro e transparente. Boa sorte!
           </Text>
         </View>
-
       </View>
     </ScrollView>
   );
@@ -174,6 +190,7 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
     gap: 12,
   },
+
   secaoHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -182,6 +199,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#2e2e50",
     paddingBottom: 10,
   },
+
   secaoTitulo: {
     color: "#7a9dd1",
     fontSize: 15,
@@ -212,9 +230,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  // ✅ CORRIGIDO
-  youtubelink: {
-    color: "#3b26f9",
+  // 🔥 FIX REAL
+  linkTexto: {
+    color: "#254aee",
     textDecorationLine: "underline",
   },
 
@@ -225,7 +243,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#007ACC",
     padding: 12,
     borderRadius: 10,
+    marginTop: 10,
   },
+
   linkBtnTexto: {
     color: "#fff",
     fontWeight: "bold",
@@ -236,6 +256,7 @@ const styles = StyleSheet.create({
     gap: 8,
     padding: 12,
   },
+
   rodapeTexto: {
     color: "#a0a0b8",
     flex: 1,
