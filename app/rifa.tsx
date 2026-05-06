@@ -127,7 +127,7 @@ export default function Rifa() {
         params: {
           valor: total.toFixed(2),
           id_compra: compra.id_compra,
-          placar: selecionados.map((n) => String(n).padStart(4, "0")).join(", "),
+          placar: selecionados.map((n) => String(n).padStart(1, "0")).join(", "),
         },
       });
     } catch (error: any) {
