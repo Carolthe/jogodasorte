@@ -9,7 +9,8 @@ export default function Home() {
     const router = useRouter()
     const banners = [
         "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_16_57_38_qpoufs.png",
-        "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_16_59_47_ut3pnq.png",
+        // "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_16_59_47_ut3pnq.png",
+        "https://res.cloudinary.com/do4p13i1a/image/upload/v1778070334/ChatGPT_Image_6_05_2026_13_24_31_kpezlq.png",
         "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_17_03_28_sylept.png",
     ];
     return (
@@ -20,20 +21,20 @@ export default function Home() {
             {/* <Text style={styles.descricao}>Concorra e ganhe</Text> */}
             <View style={styles.containerCardPremio}>
                 <CardPremio
-                    titulo="1º Lugar"
-                    valor="R$ 500,00"
+                    titulo="1º Prêmio"
+                    valor="R$ 100,00"
                     imagem={require('@/src/assets/trofeu.png')}
                 />
-                <CardPremio
+                {/* <CardPremio
                     titulo="2º ao 5º"
                     valor="R$ 50,00"
                      tipo="outros"
                     imagem={require('@/src/assets/trofeu2.png')}
-                />
+                /> */}
                 
             </View>
             <View style={styles.containerCardRifa}>
-                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 10' textoBotao="Escolher" />
+                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 1,0' textoBotao="Escolher" />
             </View>
             <Text style={styles.textInfo} onPress={() => router.replace('/info-rifa')}>Saber mais informações</Text>
         </ScrollView>

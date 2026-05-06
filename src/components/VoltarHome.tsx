@@ -11,7 +11,7 @@ export default function VoltarHome() {
         onPress={() => router.replace("/")}
         style={styles.button}
       >
-        <Ionicons name="arrow-back" size={24} color="#195ec7" />
+        <Ionicons name="arrow-back" size={24} color="#007ACC" />
       </Pressable>
     </View>
   );
@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 25,
     paddingHorizontal: 25,
-    paddingBottom: 15,
   },
   button: {
     width: 40,

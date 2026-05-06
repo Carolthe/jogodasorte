@@ -79,7 +79,7 @@ export default function Rifa() {
 
   const numerosPagina = numerosFiltrados;
 
-  const precoPorNumero = 10;
+  const precoPorNumero = 1;
   const total = selecionados.length * precoPorNumero;
 
   // contagens para os boxes
@@ -226,7 +226,7 @@ export default function Rifa() {
               >
                 {isVendido ? (
                   // X para vendido
-                  <Ionicons name="close" size={16} color="#2135a8" />
+                  <Ionicons name="close" size={16} color="#66261d" />
                 ) : (
                   <Text
                     style={[
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
   hero: { paddingHorizontal: 24, paddingBottom: 20 },
   title: { fontSize: 22, fontWeight: "bold", color: "#fff", marginBottom: 8, textAlign: "center", marginHorizontal: 10 },
 
-  containerNumeros: { flexDirection: "row", gap: 10, justifyContent: "center", paddingHorizontal: 20, marginBottom: 20 },
+  containerNumeros: { flexDirection: "row", gap: 10, marginTop: 15, justifyContent: "center", paddingHorizontal: 20, marginBottom: 20 },
   box: {
     alignItems: "center", backgroundColor: "#1a1a2e", padding: 10,
     borderRadius: 10, width: "30%", borderWidth: 0.5, borderColor: "#2e2e50", gap: 4,
@@ -329,16 +329,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6, width: "16.66%", paddingVertical: 10,
     alignItems: "center", borderWidth: 0.5, borderColor: "#2e2e50",
   },
-  numeroSelecionado: { backgroundColor: "#195ec7", borderColor: "#5560f7" },
+  numeroSelecionado: { backgroundColor: "#007ACC", borderColor: "#5560f7" },
   numeroReservado: { backgroundColor: "#1a1a2e", opacity: 0.4 },       // opaco
-  numeroVendido: { backgroundColor: "#1a0a2e", borderColor: "#4c1d95" }, // mais escuro com X
+  numeroVendido: { backgroundColor: "#161622", borderColor: "#1f2333" }, // mais escuro com X
 
   numeroTexto: { color: "#a0a0b8", fontWeight: "bold", fontSize: 13 },
   numeroTextoSelected: { color: "#fff" },
   numeroTextoReservado: { color: "#555" },
 
   paginacao: { flexDirection: "row", justifyContent: "center", gap: 20, alignItems: "center", padding: 20 },
-  botao: { backgroundColor: "#195ec7", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
+  botao: { backgroundColor: "#007ACC", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
   botaoDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoTexto: { color: "#fff", fontWeight: "bold", fontSize: 14 },
   paginaInfo: { alignItems: "center" },
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   },
   totalTexto: { color: "#a0a0b8", fontSize: 12 },
   totalValor: { color: "#7a9dd1", fontSize: 20, fontWeight: "bold" },
-  botaoComprar: { backgroundColor: "#195ec7", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
+  botaoComprar: { backgroundColor: "#007ACC", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
   botaoComprarDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
   botaoComprarTexto: { color: "#fff", fontWeight: "bold", fontSize: 16 },
 });

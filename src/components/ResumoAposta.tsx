@@ -18,11 +18,8 @@ export default function ResumoAposta({ placar, valor }: Props) {
 
       {/* HEADER */}
       <View style={styles.header}>
-        <View style={styles.headerIconBox}>
-          <Text style={styles.headerIcon}>🎟</Text>
-        </View>
         <View>
-          <Text style={styles.title}>Resumo:</Text>
+          <Text style={styles.title}>Resumo do Sorteio:</Text>
         </View>
       </View>
 
@@ -55,12 +52,12 @@ export default function ResumoAposta({ placar, valor }: Props) {
           <Text style={styles.tituloPremio}>Concorrendo:</Text>
           <View style={styles.premioRow}>
             <Text style={styles.premioLabel}>1º Prêmio</Text>
-            <Text style={styles.premioValor}>R$ 500,00</Text>
+            <Text style={styles.premioValor}>R$ 100,00</Text>
           </View>
-          <View style={styles.premioRow}>
+          {/* <View style={styles.premioRow}>
             <Text style={styles.premioLabel}>2º ao 5º Prêmio</Text>
             <Text style={styles.premioValor2}>R$ 50,00</Text>
-          </View>
+          </View> */}
         
     </View>
   );
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#1a1a5e",
     borderWidth: 0.5,
-    borderColor: "#195ec7",
+    borderColor: "#007ACC",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -121,7 +118,7 @@ const styles = StyleSheet.create({
   numeroBadge: {
     backgroundColor: "#252e67aa",
     borderWidth: 0.5,
-    borderColor: "#195ec7",
+    borderColor: "#007ACC",
     borderRadius: 6,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -148,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(58, 79, 237, 0.1)",
     borderWidth: 0.5,
-    borderColor: "#195ec7",
+    borderColor: "#007ACC",
     borderRadius: 10,
     padding: 12,
     marginBottom: 10,

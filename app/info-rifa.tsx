@@ -48,7 +48,7 @@ export default function InfoRifa() {
         </View>
 
         {/* SEÇÃO — PRÊMIOS */}
-        <View style={styles.secao}>
+        {/* <View style={styles.secao}>
           <View style={styles.secaoHeader}>
             <Ionicons name="trophy" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Duvidas Sobre Prêmios</Text>
@@ -58,9 +58,9 @@ export default function InfoRifa() {
             Ao comprar um número, você concorre automaticamente aos 5 prêmios.
           </Item>
           <Item numero={2} icon="gift" cor="#7a9dd1">
-            O primeiro números concorre a 500 reais, os demais 4 números concorrem a 50 reais cada.
+            O primeiro número concorre a 500 reais, os demais 4 números concorrem a 50 reais cada.
           </Item>
-        </View>
+        </View> */}
 
         {/* SEÇÃO — SORTEIO */}
         <View style={styles.secao}>
@@ -69,15 +69,15 @@ export default function InfoRifa() {
             <Text style={styles.secaoTitulo}>Sorteio</Text>
           </View>
 
-          <Item numero={3} icon="logo-youtube" cor="#7a9dd1">
+          <Item numero={1} icon="logo-youtube" cor="#7a9dd1">
             O sorteio será realizado pelo canal Paltites Xande JB.
           </Item>
-          <Item numero={4} icon="link" cor="#7a9dd1">
+          <Item numero={2} icon="link" cor="#7a9dd1">
             <Text style={styles.youtubelink} onPress={() => Linking.openURL(YOUTUBE_URL)}>
               Acesse pelo YouTube, Clique aqui.
             </Text>
           </Item>
-          <Item numero={5} icon="time" cor="#7a9dd1">
+          <Item numero={3} icon="time" cor="#7a9dd1">
             O sorteio ocorrerá assim que a banca for fechada (Nós horarios 9hr, 11hr, 14hr, 16hr, 18hr e 21hr ao domingo).
           </Item>
 
@@ -90,7 +90,7 @@ export default function InfoRifa() {
             <Text style={styles.secaoTitulo}>Contato com os Ganhadores</Text>
           </View>
 
-          <Item numero={6} icon="phone-portrait" cor="#22c55e">
+          <Item numero={4} icon="phone-portrait" cor="#22c55e">
             Os ganhadores serão contatados pelo número de telefone cadastrado. Certifique-se de que o número está correto.
           </Item>
         </View>
@@ -102,13 +102,13 @@ export default function InfoRifa() {
             <Text style={styles.secaoTitulo}>Redes Sociais e Suporte</Text>
           </View>
 
-          <Item numero={7} icon="logo-instagram" cor="#7a9dd1">
+          <Item numero={5} icon="logo-instagram" cor="#7a9dd1">
             Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
           </Item>
-          <Item numero={8} icon="notifications" cor="#7a9dd1">
+          <Item numero={6} icon="notifications" cor="#7a9dd1">
             Para qualquer outra questão, nos envie mensagem pelo instagram.
           </Item>
-          <Item numero={9} icon="logo-whatsapp" cor="#7a9dd1">
+          <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
             Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.
           </Item>
 
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: "#195ec7",
+    backgroundColor: "#007ACC",
     paddingVertical: 12,
     borderRadius: 10,
   },
