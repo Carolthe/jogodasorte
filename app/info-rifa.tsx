@@ -3,9 +3,30 @@ import { Ionicons } from "@expo/vector-icons";
 import Header from "@/src/components/Header";
 import VoltarHome from "@/src/components/VoltarHome";
 
-const INSTAGRAM_URL = "https://www.instagram.com/sorte_winner/"; // ← substitua
-const WHATSAPP_URL = "https://chat.whatsapp.com/Hf8uR2zqibu82E1tTn0bgc"
-const YOUTUBE_URL = "https://youtube.com/@1palpitesxandejb?si=0nNAxn2Tq316r8vK";
+// LINKS WEB (fallback)
+const INSTAGRAM_WEB = "https://www.instagram.com/sorte_winner/";
+const WHATSAPP_WEB = "https://chat.whatsapp.com/Hf8uR2zqibu82E1tTn0bgc";
+const YOUTUBE_WEB = "https://youtube.com/@1palpitesxandejb";
+
+// DEEP LINKS (apps)
+const INSTAGRAM_APP = "instagram://user?username=sorte_winner";
+const YOUTUBE_APP = "vnd.youtube://channel/"; // se tiver ID do canal, melhor ainda
+
+// 🔥 FUNÇÃO UNIVERSAL
+const openLink = async (appUrl: string, webUrl: string) => {
+  try {
+    const supported = await Linking.canOpenURL(appUrl);
+
+    if (supported) {
+      await Linking.openURL(appUrl);
+    } else {
+      await Linking.openURL(webUrl);
+    }
+  } catch (error) {
+    console.log("Erro ao abrir link:", error);
+    await Linking.openURL(webUrl);
+  }
+};
 
 type ItemProps = {
   numero: number;
@@ -47,22 +68,7 @@ export default function InfoRifa() {
           </Text>
         </View>
 
-        {/* SEÇÃO — PRÊMIOS */}
-        {/* <View style={styles.secao}>
-          <View style={styles.secaoHeader}>
-            <Ionicons name="trophy" size={16} color="#7a9dd1" />
-            <Text style={styles.secaoTitulo}>Duvidas Sobre Prêmios</Text>
-          </View>
-
-          <Item numero={1} icon="gift" cor="#7a9dd1">
-            Ao comprar um número, você concorre automaticamente aos 5 prêmios.
-          </Item>
-          <Item numero={2} icon="gift" cor="#7a9dd1">
-            O primeiro número concorre a 500 reais, os demais 4 números concorrem a 50 reais cada.
-          </Item>
-        </View> */}
-
-        {/* SEÇÃO — SORTEIO */}
+        {/* SORTEIO */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
             <Ionicons name="videocam" size={16} color="#7a9dd1" />
@@ -72,30 +78,22 @@ export default function InfoRifa() {
           <Item numero={1} icon="logo-youtube" cor="#7a9dd1">
             O sorteio será realizado pelo canal Paltites Xande JB.
           </Item>
+
           <Item numero={2} icon="link" cor="#7a9dd1">
-            <Text style={styles.youtubelink} onPress={() => Linking.openURL(YOUTUBE_URL)}>
+            <Text
+              style={styles.youtubelink}
+              onPress={() => openLink(YOUTUBE_APP, YOUTUBE_WEB)}
+            >
               Acesse pelo YouTube, Clique aqui.
             </Text>
           </Item>
+
           <Item numero={3} icon="time" cor="#7a9dd1">
-            O sorteio ocorrerá assim que a banca for fechada (Nós horarios 9hr, 11hr, 14hr, 16hr, 18hr e 21hr ao domingo).
-          </Item>
-
-        </View>
-
-        {/* SEÇÃO — GANHADORES */}
-        <View style={styles.secao}>
-          <View style={styles.secaoHeader}>
-            <Ionicons name="call" size={16} color="#7a9dd1" />
-            <Text style={styles.secaoTitulo}>Contato com os Ganhadores</Text>
-          </View>
-
-          <Item numero={4} icon="phone-portrait" cor="#22c55e">
-            Os ganhadores serão contatados pelo número de telefone cadastrado. Certifique-se de que o número está correto.
+            O sorteio ocorrerá assim que a banca for fechada.
           </Item>
         </View>
 
-        {/* SEÇÃO — REDES SOCIAIS */}
+        {/* REDES SOCIAIS */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
             <Ionicons name="share-social" size={16} color="#7a9dd1" />
@@ -103,42 +101,31 @@ export default function InfoRifa() {
           </View>
 
           <Item numero={5} icon="logo-instagram" cor="#7a9dd1">
-            Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
-          </Item>
-          <Item numero={6} icon="notifications" cor="#7a9dd1">
-            Para qualquer outra questão, nos envie mensagem pelo instagram.
-          </Item>
-          <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
-            Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.
+            Siga-nos no Instagram.
           </Item>
 
+          <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
+            Entre no grupo do WhatsApp.
+          </Item>
+
+          {/* INSTAGRAM */}
           <TouchableOpacity
             style={styles.linkBtn}
-            onPress={() => Linking.openURL(INSTAGRAM_URL)}
-            activeOpacity={0.8}
+            onPress={() => openLink(INSTAGRAM_APP, INSTAGRAM_WEB)}
           >
             <Ionicons name="logo-instagram" size={18} color="#fff" />
             <Text style={styles.linkBtnTexto}>Acessar Instagram</Text>
           </TouchableOpacity>
 
-
-
+          {/* WHATSAPP */}
           <TouchableOpacity
             style={[styles.linkBtn, { backgroundColor: "#25D366" }]}
-            onPress={() => Linking.openURL(WHATSAPP_URL)}
-            activeOpacity={0.8}
+            onPress={() => openLink(WHATSAPP_WEB, WHATSAPP_WEB)}
           >
             <Ionicons name="logo-whatsapp" size={18} color="#fff" />
             <Text style={styles.linkBtnTexto}>Entrar no WhatsApp</Text>
           </TouchableOpacity>
-        </View>
 
-        {/* RODAPÉ */}
-        <View style={styles.rodape}>
-          <Ionicons name="shield-checkmark" size={16} color="#22c55e" />
-          <Text style={styles.rodapeTexto}>
-            Sorteio segura e transparente. Boa sorte a todos os participantes!
-          </Text>
         </View>
 
       </View>
@@ -156,7 +143,6 @@ const styles = StyleSheet.create({
     gap: 20,
   },
 
-  // HEADER
   header: {
     alignItems: "center",
   },
@@ -175,14 +161,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 4,
   },
   subtitulo: {
     color: "#a0a0b8",
     fontSize: 14,
   },
 
-  // SEÇÃO
   secao: {
     backgroundColor: "#1a1a2e",
     borderRadius: 16,
@@ -195,7 +179,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    marginBottom: 4,
     paddingBottom: 10,
     borderBottomWidth: 0.5,
     borderBottomColor: "#2e2e50",
@@ -206,11 +189,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  // ITEM
   item: {
     flexDirection: "row",
     gap: 12,
-    alignItems: "flex-start",
   },
   iconBox: {
     width: 36,
@@ -220,63 +201,28 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0,
   },
   itemContent: {
     flex: 1,
-    gap: 2,
   },
   itemNumero: {
     color: "#a0a0b8",
     fontSize: 11,
-    fontWeight: "500",
   },
   itemTexto: {
     color: "#e2e2f0",
     fontSize: 14,
-    lineHeight: 20,
   },
+
   youtubelink: {
-    color: '',
-    textDecorationLine: 'underline',
-    textDecorationColor: '#ffffff'
+    color: "#1b64d2",
+    textDecorationLine: "underline",
   },
 
-  // CARDS DE PRÊMIO
-  premioCard: {
-    backgroundColor: "#12122a",
-    borderRadius: 12,
-    padding: 14,
-    borderWidth: 0.5,
-    borderColor: "#2e1a5e",
-    gap: 4,
-  },
-  premioHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-  },
-  premioLabel: {
-    color: "#7a9dd1",
-    fontSize: 13,
-    fontWeight: "600",
-  },
-  premioValor: {
-    color: "#7a9dd1",
-    fontSize: 22,
-    fontWeight: "bold",
-  },
-  premioDesc: {
-    color: "#a0a0b8",
-    fontSize: 13,
-    lineHeight: 19,
-  },
-
-  // BOTÕES DE LINK
   linkBtn: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     gap: 8,
     backgroundColor: "#007ACC",
     paddingVertical: 12,
@@ -285,24 +231,5 @@ const styles = StyleSheet.create({
   linkBtnTexto: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 15,
-  },
-
-  // RODAPÉ
-  rodape: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    backgroundColor: "rgba(34,197,94,0.08)",
-    borderWidth: 0.5,
-    borderColor: "#22c55e",
-    borderRadius: 10,
-    padding: 12,
-  },
-  rodapeTexto: {
-    color: "#a0a0b8",
-    fontSize: 13,
-    flex: 1,
-    lineHeight: 18,
   },
 });
