@@ -1,15 +1,19 @@
 import Header from "@/src/components/Header";
 import {
-  View, Text, StyleSheet, Pressable,
-  ScrollView, TextInput, Alert,
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  TextInput,
 } from "react-native";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import VoltarHome from "@/src/components/VoltarHome";
 import api from "@/src/services/api";
 import { useAuth } from "@/src/contexts/AuthContext";
-import { Platform } from "react-native";
 
 type Numero = {
   id_numero: number;
@@ -25,8 +29,10 @@ export default function Rifa() {
 
   const [numeros, setNumeros] = useState<Numero[]>([]);
   const [loadingNumeros, setLoadingNumeros] = useState(true);
+
+  // números selecionados pelo usuário
   const [selecionados, setSelecionados] = useState<number[]>([]);
-  // const [pagina, setPagina] = useState(0);
+
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<Filtro>("todos");
 
@@ -34,11 +40,10 @@ export default function Rifa() {
     fetchNumeros();
   }, []);
 
+  // busca números da rifa
   async function fetchNumeros() {
     try {
       const response = await api.get("/rifa/numeros");
-      console.log("RESPOSTA API:", response.data); // ✅ veja o que chega
-      console.log("É array?", Array.isArray(response.data));
       setNumeros(response.data);
     } catch (error) {
       console.error("Erro ao buscar números:", error);
@@ -55,40 +60,45 @@ export default function Rifa() {
     );
   }
 
-  // ── Filtros ────────────────────────────────────────────────────────────────
+  // formata número com 2 dígitos
   function formatNumero(n: number | string) {
     return String(n).padStart(2, "0");
   }
 
-
+  // filtros
   const numerosFiltrados = numeros.filter((n) => {
     const matchBusca = busca.trim()
       ? formatNumero(n.numero).includes(busca.trim())
       : true;
 
-    const matchFiltro = filtro === "todos" ? true : n.status === filtro;
+    const matchFiltro =
+      filtro === "todos" ? true : n.status === filtro;
+
     return matchBusca && matchFiltro;
   });
-
-  // const itensPorPagina = 70;
-  // const inicio = pagina * itensPorPagina;
-  // const fim = inicio + itensPorPagina;
-  // const numerosPagina = busca || filtro !== "todos"
-  //   ? numerosFiltrados
-  //   : numerosFiltrados.slice(inicio, fim);
 
   const numerosPagina = numerosFiltrados;
 
   const precoPorNumero = 1;
   const total = selecionados.length * precoPorNumero;
 
-  // contagens para os boxes
-  const qtdDisponivel = numeros.filter((n) => n.status === "disponivel").length;
-  const qtdReservado = numeros.filter((n) => n.status === "reservado").length;
-  const qtdVendido = numeros.filter((n) => n.status === "vendido").length;
+  // contadores
+  const qtdDisponivel = numeros.filter(
+    (n) => n.status === "disponivel"
+  ).length;
 
+  const qtdReservado = numeros.filter(
+    (n) => n.status === "reservado"
+  ).length;
+
+  const qtdVendido = numeros.filter(
+    (n) => n.status === "vendido"
+  ).length;
+
+  // seleciona/desmarca número
   function toggleNumero(n: Numero) {
-    if (n.status !== "disponivel") return; // bloqueia reservado/vendido
+    if (n.status !== "disponivel") return;
+
     setSelecionados((prev) =>
       prev.includes(n.numero)
         ? prev.filter((x) => x !== n.numero)
@@ -96,13 +106,8 @@ export default function Rifa() {
     );
   }
 
-  // function proximaPagina() {
-  //   if (fim < numerosFiltrados.length) setPagina((p) => p + 1);
-  // }
-  // function paginaAnterior() {
-  //   if (pagina > 0) setPagina((p) => p - 1);
-  // }
-
+  // AGORA NÃO SALVA MAIS NO BANCO
+  // apenas redireciona para tela PIX
   async function handleComprar() {
     if (carregando) return;
 
@@ -113,68 +118,78 @@ export default function Rifa() {
 
     if (selecionados.length === 0) return;
 
-    try {
-      const response = await api.post("/rifa/compras", {
-        total_numeros: selecionados.length,
-        valor_total: total,
-        numeros: selecionados,
-      });
+    // apenas navega para a tela PIX
+    // SEM RESERVAR número
+    // SEM criar compra
+    router.push({
+      pathname: "/pagamento-pix",
+      params: {
+        valor: total.toFixed(2),
 
-      const compra = response.data;
+        // envia os números selecionados
+        numeros: JSON.stringify(selecionados),
 
-      router.push({
-        pathname: "/pagamento-pix",
-        params: {
-          valor: total.toFixed(2),
-          id_compra: compra.id_compra,
-          placar: selecionados.map((n) => String(n).padStart(1, "0")).join(", "),
-        },
-      });
-    } catch (error: any) {
-      const msg = error.response?.data?.erro || "Não foi possível realizar a compra.";
-      if (Platform.OS === "web") {
-        window.alert(msg);
-      } else {
-        Alert.alert("Erro", msg);
-      }
-    }
+        placar: selecionados
+          .map((n) => String(n).padStart(2, "0"))
+          .join(", "),
+      },
+    });
   }
 
-  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <View style={styles.container}>
       <Header />
 
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 120 }}
+      >
         <VoltarHome />
 
-        {/* <View style={styles.hero}>
-          <Text style={styles.title}>
-            
-          </Text>
-        </View> */}
-
-        {/* STATUS — clicável para filtrar */}
+        {/* STATUS */}
         <View style={styles.containerNumeros}>
-          {(
-            [
-              { label: "Disponível", status: "disponivel" as Filtro, cor:"#ffffff", qtd: qtdDisponivel },
-              { label: "Reservado", status: "reservado" as Filtro, cor:'#ffffff' , qtd: qtdReservado },
-              { label: "Vendido", status: "vendido" as Filtro, cor: "#ffffff", qtd: qtdVendido },
-            ]
-          ).map((item) => (
+          {[
+            {
+              label: "Disponível",
+              status: "disponivel" as Filtro,
+              cor: "#ffffff",
+              qtd: qtdDisponivel,
+            },
+            {
+              label: "Reservado",
+              status: "reservado" as Filtro,
+              cor: "#ffffff",
+              qtd: qtdReservado,
+            },
+            {
+              label: "Vendido",
+              status: "vendido" as Filtro,
+              cor: "#ffffff",
+              qtd: qtdVendido,
+            },
+          ].map((item) => (
             <Pressable
               key={item.status}
               style={[
                 styles.box,
-                filtro === item.status && { borderColor: item.cor, borderWidth: 1.5 },
+                filtro === item.status && {
+                  borderColor: item.cor,
+                  borderWidth: 1.5,
+                },
               ]}
               onPress={() => {
-                setFiltro((prev) => prev === item.status ? "todos" : item.status);
+                setFiltro((prev) =>
+                  prev === item.status ? "todos" : item.status
+                );
               }}
             >
-              <Text style={[styles.label, { color: item.cor }]}>{item.label}</Text>
-              <Text style={[styles.value, { color: item.cor }]}>{item.qtd}</Text>
+              <Text style={[styles.label, { color: item.cor }]}>
+                {item.label}
+              </Text>
+
+              <Text style={[styles.value, { color: item.cor }]}>
+                {item.qtd}
+              </Text>
             </Pressable>
           ))}
         </View>
@@ -182,7 +197,13 @@ export default function Rifa() {
         {/* BUSCA */}
         <View style={styles.searchWrapper}>
           <View style={styles.searchContainer}>
-            <Ionicons name="search" size={18} color="#a0a0b8" style={styles.searchIcon} />
+            <Ionicons
+              name="search"
+              size={18}
+              color="#a0a0b8"
+              style={styles.searchIcon}
+            />
+
             <TextInput
               style={styles.input}
               placeholder="Buscar número"
@@ -190,26 +211,30 @@ export default function Rifa() {
               keyboardType="numeric"
               value={busca}
               onChangeText={setBusca}
-            // onChangeText={(t) => { setBusca(t); setPagina(0); }}
             />
+
             {busca.length > 0 && (
-              <Pressable onPress={() => setBusca("")} style={styles.clearBtn}>
-                <Ionicons name="close-circle" size={18} color="#a0a0b8" />
+              <Pressable
+                onPress={() => setBusca("")}
+                style={styles.clearBtn}
+              >
+                <Ionicons
+                  name="close-circle"
+                  size={18}
+                  color="#a0a0b8"
+                />
               </Pressable>
             )}
           </View>
-          {(busca.length > 0 || filtro !== "todos") && (
-            <Text style={styles.searchResult}>
-
-            </Text>
-          )}
         </View>
 
         {/* GRID */}
         <View style={styles.grid}>
           {numerosPagina.map((n) => {
             const isSelected = selecionados.includes(n.numero);
+
             const isReservado = n.status === "reservado";
+
             const isVendido = n.status === "vendido";
 
             return (
@@ -225,14 +250,19 @@ export default function Rifa() {
                 ]}
               >
                 {isVendido ? (
-                  // X para vendido
-                  <Ionicons name="close" size={16} color="#66261d" />
+                  <Ionicons
+                    name="close"
+                    size={16}
+                    color="#66261d"
+                  />
                 ) : (
                   <Text
                     style={[
                       styles.numeroTexto,
-                      isSelected && styles.numeroTextoSelected,
-                      isReservado && styles.numeroTextoReservado,
+                      isSelected &&
+                        styles.numeroTextoSelected,
+                      isReservado &&
+                        styles.numeroTextoReservado,
                     ]}
                   >
                     {formatNumero(n.numero)}
@@ -242,53 +272,40 @@ export default function Rifa() {
             );
           })}
         </View>
-
-        {/* PAGINAÇÃO — só quando não há busca/filtro */}
-        {/* {!busca && filtro === "todos" && (
-          <View style={styles.paginacao}>
-            <Pressable
-              onPress={paginaAnterior}
-              style={[styles.botao, pagina === 0 && styles.botaoDisabled]}
-              disabled={pagina === 0}
-            >
-              <Ionicons name="chevron-back" size={16} color="#fff" />
-              <Text style={styles.botaoTexto}>Anterior</Text>
-            </Pressable>
-
-            <View style={styles.paginaInfo}>
-              <Text style={styles.paginaTexto}>Página</Text>
-              <Text style={styles.paginaNumero}>{pagina + 1}</Text>
-            </View>
-
-            <Pressable
-              onPress={proximaPagina}
-              style={[styles.botao, fim >= numerosFiltrados.length && styles.botaoDisabled]}
-              disabled={fim >= numerosFiltrados.length}
-            >
-              <Text style={styles.botaoTexto}>Próximo</Text>
-              <Ionicons name="chevron-forward" size={16} color="#fff" />
-            </Pressable>
-          </View>
-        )} */}
       </ScrollView>
 
       {/* FOOTER */}
       <View style={styles.footer}>
         <View>
-          <Text style={styles.totalTexto}>{selecionados.length} número(s)</Text>
-          <Text style={styles.totalValor}>R$ {total.toFixed(2)}</Text>
+          <Text style={styles.totalTexto}>
+            {selecionados.length} número(s)
+          </Text>
+
+          <Text style={styles.totalValor}>
+            R$ {total.toFixed(2)}
+          </Text>
         </View>
 
         <Pressable
           style={[
             styles.botaoComprar,
-            selecionados.length === 0 && !!user && styles.botaoComprarDisabled,
+            selecionados.length === 0 &&
+              !!user &&
+              styles.botaoComprarDisabled,
           ]}
           onPress={handleComprar}
           disabled={carregando}
         >
-          <Ionicons name="ticket-outline" size={18} color="#fff" style={{ marginRight: 6 }} />
-          <Text style={styles.botaoComprarTexto}>Comprar</Text>
+          <Ionicons
+            name="ticket-outline"
+            size={18}
+            color="#fff"
+            style={{ marginRight: 6 }}
+          />
+
+          <Text style={styles.botaoComprarTexto}>
+            Comprar
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -296,63 +313,175 @@ export default function Rifa() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#0e0e0e" },
-  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0e0e0e" },
-  loadingText: { color: "#a0a0b8", fontSize: 15 },
+  container: {
+    flex: 1,
+    backgroundColor: "#0e0e0e",
+  },
 
-  hero: { paddingHorizontal: 24, paddingBottom: 20 },
-  title: { fontSize: 22, fontWeight: "bold", color: "#fff", marginBottom: 8, textAlign: "center", marginHorizontal: 10 },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0e0e0e",
+  },
 
-  containerNumeros: { flexDirection: "row", gap: 10, marginTop: 15, justifyContent: "center", paddingHorizontal: 20, marginBottom: 20 },
+  loadingText: {
+    color: "#a0a0b8",
+    fontSize: 15,
+  },
+
+  containerNumeros: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 15,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+
   box: {
-    alignItems: "center", backgroundColor: "#1a1a2e", padding: 10,
-    borderRadius: 10, width: "30%", borderWidth: 0.5, borderColor: "#2e2e50", gap: 4,
+    alignItems: "center",
+    backgroundColor: "#1a1a2e",
+    padding: 10,
+    borderRadius: 10,
+    width: "30%",
+    borderWidth: 0.5,
+    borderColor: "#2e2e50",
+    gap: 4,
   },
-  label: { fontSize: 11 },
-  value: { fontSize: 18, fontWeight: "bold" },
 
-  searchWrapper: { marginBottom: 16, justifyContent: "center", flexDirection: "row" },
+  label: {
+    fontSize: 11,
+  },
+
+  value: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  searchWrapper: {
+    marginBottom: 16,
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+
   searchContainer: {
-    flexDirection: "row", alignItems: "center", backgroundColor: "#1a1a2e",
-    borderRadius: 12, borderWidth: 0.5, borderColor: "#2e2e50",
-    paddingHorizontal: 14, height: 48, width: "87%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1a1a2e",
+    borderRadius: 12,
+    borderWidth: 0.5,
+    borderColor: "#2e2e50",
+    paddingHorizontal: 14,
+    height: 48,
+    width: "87%",
   },
-  searchIcon: { marginRight: 10 },
-  input: { flex: 1, color: "#fff", fontSize: 15, height: "100%" },
-  clearBtn: { padding: 4 },
-  searchResult: { color: "#a0a0b8", fontSize: 12, marginTop: 8, marginLeft: 4 },
 
-  grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", marginHorizontal: 5 },
+  searchIcon: {
+    marginRight: 10,
+  },
+
+  input: {
+    flex: 1,
+    color: "#fff",
+    fontSize: 15,
+    height: "100%",
+  },
+
+  clearBtn: {
+    padding: 4,
+  },
+
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
 
   numeroBox: {
-    margin: 3, backgroundColor: "#1a1a2e", borderRadius: 8,
-    paddingHorizontal: 6, width: "16.66%", paddingVertical: 10,
-    alignItems: "center", borderWidth: 0.5, borderColor: "#2e2e50",
+    margin: 3,
+    backgroundColor: "#1a1a2e",
+    borderRadius: 8,
+    paddingHorizontal: 6,
+    width: "16.66%",
+    paddingVertical: 10,
+    alignItems: "center",
+    borderWidth: 0.5,
+    borderColor: "#2e2e50",
   },
-  numeroSelecionado: { backgroundColor: "#007ACC", borderColor: "#5560f7" },
-  numeroReservado: { backgroundColor: "#1a1a2e", opacity: 0.4 },       // opaco
-  numeroVendido: { backgroundColor: "#161622", borderColor: "#1f2333" }, // mais escuro com X
 
-  numeroTexto: { color: "#a0a0b8", fontWeight: "bold", fontSize: 13 },
-  numeroTextoSelected: { color: "#fff" },
-  numeroTextoReservado: { color: "#555" },
+  numeroSelecionado: {
+    backgroundColor: "#007ACC",
+    borderColor: "#5560f7",
+  },
 
-  paginacao: { flexDirection: "row", justifyContent: "center", gap: 20, alignItems: "center", padding: 20 },
-  botao: { backgroundColor: "#007ACC", paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10, flexDirection: "row", alignItems: "center", gap: 4 },
-  botaoDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
-  botaoTexto: { color: "#fff", fontWeight: "bold", fontSize: 14 },
-  paginaInfo: { alignItems: "center" },
-  paginaTexto: { color: "#a0a0b8", fontSize: 11 },
-  paginaNumero: { color: "#b5b4fe", fontSize: 14, fontWeight: "bold" },
+  numeroReservado: {
+    backgroundColor: "#1a1a2e",
+    opacity: 0.4,
+  },
+
+  numeroVendido: {
+    backgroundColor: "#161622",
+    borderColor: "#1f2333",
+  },
+
+  numeroTexto: {
+    color: "#a0a0b8",
+    fontWeight: "bold",
+    fontSize: 13,
+  },
+
+  numeroTextoSelected: {
+    color: "#fff",
+  },
+
+  numeroTextoReservado: {
+    color: "#555",
+  },
 
   footer: {
-    position: "absolute", bottom: 0, left: 0, right: 0,
-    flexDirection: "row", justifyContent: "space-between", alignItems: "center",
-    padding: 15, backgroundColor: "#0e0e0e", borderTopWidth: 0.5, borderTopColor: "#2e2e50",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: "#0e0e0e",
+    borderTopWidth: 0.5,
+    borderTopColor: "#2e2e50",
   },
-  totalTexto: { color: "#a0a0b8", fontSize: 12 },
-  totalValor: { color: "#7a9dd1", fontSize: 20, fontWeight: "bold" },
-  botaoComprar: { backgroundColor: "#007ACC", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10, flexDirection: "row", alignItems: "center" },
-  botaoComprarDisabled: { backgroundColor: "#2e2e50", opacity: 0.5 },
-  botaoComprarTexto: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+
+  totalTexto: {
+    color: "#a0a0b8",
+    fontSize: 12,
+  },
+
+  totalValor: {
+    color: "#7a9dd1",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+
+  botaoComprar: {
+    backgroundColor: "#007ACC",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  botaoComprarDisabled: {
+    backgroundColor: "#2e2e50",
+    opacity: 0.5,
+  },
+
+  botaoComprarTexto: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
 });

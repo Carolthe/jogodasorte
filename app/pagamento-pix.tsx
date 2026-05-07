@@ -1,6 +1,7 @@
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
+
 import ResumoAposta from "@/src/components/ResumoAposta";
 import Header from "@/src/components/Header";
 import CardFormularioPix from "@/src/components/CardFormularioPix";
@@ -9,17 +10,22 @@ import VoltarAposta from "@/src/components/VoltarAposta";
 
 export default function PagamentoPix() {
   const router = useRouter();
+
   const params = useLocalSearchParams<{
     placar: string;
     valor: string;
-    id_compra: string;
+    numeros: string;
   }>();
 
-  const { placar, valor, id_compra } = params;
+  const { placar, valor, numeros } = params;
+
+  // id da compra criado SOMENTE ao gerar PIX
+  const [idCompra, setIdCompra] = useState("");
+
   const [mostrarQr, setMostrarQr] = useState(false);
 
   function handleRedirecionar() {
-    router.replace("/");  // ✅ volta para a home (ou troque por "/login" se preferir)
+    router.replace("/");
   }
 
   return (
@@ -28,19 +34,30 @@ export default function PagamentoPix() {
 
       <View style={styles.container}>
         <VoltarAposta />
-        <Text style={styles.title}>Pagamento via Pix</Text>
 
-        <ResumoAposta placar={placar} valor={valor} />
+        <Text style={styles.title}>
+          Pagamento via Pix
+        </Text>
+
+        <ResumoAposta
+          placar={placar}
+          valor={valor}
+        />
 
         {!mostrarQr ? (
           <CardFormularioPix
-            id_compra={id_compra}
-            onGerar={() => setMostrarQr(true)}
+            numeros={numeros}
+            valor={valor}
+            onGerar={(id) => {
+              setIdCompra(id);
+              setMostrarQr(true);
+            }}
           />
         ) : (
           <CardQrCode
             valor={valor}
-            onRedirecionar={handleRedirecionar} // ✅ passa a função
+            id_compra={idCompra}
+            onRedirecionar={handleRedirecionar}
           />
         )}
       </View>
@@ -54,9 +71,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#0e0e0e",
     paddingBottom: 50,
   },
+
   container: {
     padding: 16,
   },
+
   title: {
     color: "#fff",
     fontSize: 22,

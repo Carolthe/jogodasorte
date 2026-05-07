@@ -14,7 +14,8 @@ import CardAlertPagamento from "./CardAlertPagamento";
 
 type Props = {
   valor: string;
-  onRedirecionar: () => void; // ✅ nova prop
+  id_compra: string;
+  onRedirecionar: () => void;
 };
 
 type QrCodeData = {
@@ -24,7 +25,7 @@ type QrCodeData = {
 
 const TEMPO_TOTAL = 5 * 60; // 5 minutos (troque para 15 * 60 se quiser 15 min)
 
-export default function CardQrCode({ valor, onRedirecionar }: Props) {
+export default function CardQrCode({ valor, id_compra, onRedirecionar }: Props) {
   const [copiado, setCopiado]         = useState(false);
   const [pixKey, setPixKey]           = useState("");
   const [qrCodeImage, setQrCodeImage] = useState<{ uri: string } | null>(null);
@@ -40,7 +41,7 @@ export default function CardQrCode({ valor, onRedirecionar }: Props) {
   useEffect(() => {
     async function carregarPix() {
       try {
-        const response = await api.get<QrCodeData>("/apostas/qrcode-pix");
+        const response = await api.get<QrCodeData>(`/apostas/qrcode-pix?id_compra=${id_compra}`);
         const data = response.data;
         if (data?.chave_pix) setPixKey(data.chave_pix);
         if (data?.qr_code)   setQrCodeImage({ uri: data.qr_code.trim() });
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
   },
   qrContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#171724",
     borderRadius: 12,
     alignItems: "center",
     padding: 16,

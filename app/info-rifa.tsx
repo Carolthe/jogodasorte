@@ -77,7 +77,20 @@ export default function InfoRifa() {
           <Text style={styles.titulo}>Regulamento dos Jogos</Text>
           <Text style={styles.subtitulo}>Tire suas duvidas</Text>
         </View>
+        {/* SEÇÃO — PRÊMIOS */}
+        {/* <View style={styles.secao}>
+          <View style={styles.secaoHeader}>
+            <Ionicons name="trophy" size={16} color="#7a9dd1" />
+            <Text style={styles.secaoTitulo}>Duvidas Sobre Prêmios</Text>
+          </View>
 
+          <Item numero={1} icon="gift" cor="#7a9dd1">
+            Ao comprar um número, você concorre automaticamente aos 5 prêmios.
+          </Item>
+          <Item numero={2} icon="gift" cor="#7a9dd1">
+            O primeiro número concorre a 500 reais, os demais 4 números concorrem a 50 reais cada.
+          </Item>
+        </View> */}
         {/* SORTEIO */}
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
@@ -114,6 +127,20 @@ export default function InfoRifa() {
 
         {/* REDES SOCIAIS */}
         <View style={styles.secao}>
+          <View style={styles.secaoHeader}>
+            <Ionicons name="share-social" size={16} color="#7a9dd1" />
+            <Text style={styles.secaoTitulo}>Redes Sociais e Suporte</Text>
+          </View>
+
+          <Item numero={5} icon="logo-instagram" cor="#7a9dd1">
+            Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
+          </Item>
+          <Item numero={6} icon="notifications" cor="#7a9dd1">
+            Para qualquer outra questão, nos envie mensagem pelo instagram.
+          </Item>
+          <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
+            Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.
+          </Item>
           <View style={styles.secaoHeader}>
             <Ionicons name="share-social" size={16} color="#7a9dd1" />
             <Text style={styles.secaoTitulo}>Redes Sociais</Text>
