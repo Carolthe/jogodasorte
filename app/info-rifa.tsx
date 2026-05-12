@@ -11,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Header from "@/src/components/Header";
 import VoltarHome from "@/src/components/VoltarHome";
 
-const INSTAGRAM_URL = "https://www.instagram.com/sorte_winner/";
+// const INSTAGRAM_URL = "https://www.instagram.com/sorte_winner/";
 const WHATSAPP_URL = "https://chat.whatsapp.com/Hf8uR2zqibu82E1tTn0bgc";
 const YOUTUBE_URL = "https://youtube.com/@1palpitesxandejb?si=0nNAxn2Tq316r8vK";
 
@@ -129,12 +129,12 @@ export default function InfoRifa() {
         <View style={styles.secao}>
           <View style={styles.secaoHeader}>
             <Ionicons name="share-social" size={16} color="#7a9dd1" />
-            <Text style={styles.secaoTitulo}>Redes Sociais e Suporte</Text>
+            <Text style={styles.secaoTitulo}>Suporte</Text>
           </View>
 
-          <Item numero={5} icon="logo-instagram" cor="#7a9dd1">
+          {/* <Item numero={5} icon="logo-instagram" cor="#7a9dd1">
             Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
-          </Item>
+          </Item> */}
           <Item numero={6} icon="notifications" cor="#7a9dd1">
             Para qualquer outra questão, nos envie mensagem pelo instagram.
           </Item>
@@ -143,16 +143,16 @@ export default function InfoRifa() {
           </Item>
           <View style={styles.secaoHeader}>
             <Ionicons name="share-social" size={16} color="#7a9dd1" />
-            <Text style={styles.secaoTitulo}>Redes Sociais</Text>
+            <Text style={styles.secaoTitulo}>Rede Social</Text>
           </View>
 
           {/* Instagram */}
-          <ExternalLink url={INSTAGRAM_URL}>
+          {/* <ExternalLink url={INSTAGRAM_URL}>
             <View style={styles.linkBtn}>
               <Ionicons name="logo-instagram" size={18} color="#fff" />
               <Text style={styles.linkBtnTexto}>Acessar Instagram</Text>
             </View>
-          </ExternalLink>
+          </ExternalLink> */}
 
           {/* WhatsApp */}
           <ExternalLink url={WHATSAPP_URL}>

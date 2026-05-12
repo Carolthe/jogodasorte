@@ -4,6 +4,7 @@ import CardPremio from '@/src/components/CardPremio';
 import CardRifa from '@/src/components/CardRifa';
 import { useRouter } from 'expo-router';
 import Carrossel from '@/src/components/Carrossel';
+import CardResultadoSorteio from '@/src/components/CardResultadoSorteio';
 
 export default function Home() {
     const router = useRouter()
@@ -31,11 +32,13 @@ export default function Home() {
                      tipo="outros"
                     imagem={require('@/src/assets/trofeu2.png')}
                 /> */}
-                
+
             </View>
             <View style={styles.containerCardRifa}>
-                <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 1,0' textoBotao="Escolher" />
+                <CardResultadoSorteio />
+                {/* <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Tenha duas chances de ganhar' textoExtra='Cada Número custa apenas R$ 1,0' textoBotao="Escolher" /> */}
             </View>
+
             <Text style={styles.textInfo} onPress={() => router.replace('/info-rifa')}>Saber mais informações</Text>
         </ScrollView>
     );
