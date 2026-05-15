@@ -86,7 +86,7 @@ export default function CardFormularioPix({
       </Text>
 
       <Text style={styles.subtitle}>
-        Clique no botão abaixo para gerar o QR Code PIX e efetuar o Pagamento
+        Clique no botão abaixo para gerar o QR Code PIX e efetuar o Pagamento no seu Banco
       </Text>
 
       <TouchableOpacity

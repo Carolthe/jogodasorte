@@ -138,7 +138,7 @@ export default function CardQrCode({ valor, id_compra, onRedirecionar }: Props) 
       <Text style={styles.valor}>R$ {valor}</Text>
 
       {/* CHAVE PIX */}
-      <Text style={styles.copyLabel}>Copie o código PIX</Text>
+      <Text style={styles.copyLabel}>Copie o código PIX e cole no seu Banco para fazer o pagamento:</Text>
       <View style={styles.copyContainer}>
         <Text style={styles.pixKey} numberOfLines={1}>{pixKey}</Text>
         <TouchableOpacity
