@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect, useRef, ReactNode } from "react";
-import api from "@/src/services/api";
 
 type User = {
   id_usuario: number;
