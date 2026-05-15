@@ -6,7 +6,7 @@ import {
   Pressable,
   ScrollView,
   TextInput,
-} from "react-native"
+} from "react-native";
 import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -29,7 +29,6 @@ export default function Rifa() {
   const [numeros, setNumeros] = useState<Numero[]>([]);
   const [loadingNumeros, setLoadingNumeros] = useState(true);
 
-  // números selecionados pelo usuário
   const [selecionados, setSelecionados] = useState<number[]>([]);
 
   const [busca, setBusca] = useState("");
@@ -39,7 +38,6 @@ export default function Rifa() {
     fetchNumeros();
   }, []);
 
-  // busca números da rifa
   async function fetchNumeros() {
     try {
       const response = await api.get("/rifa/numeros");
@@ -59,12 +57,10 @@ export default function Rifa() {
     );
   }
 
-  // formata número com 2 dígitos
   function formatNumero(n: number | string) {
     return String(n).padStart(2, "0");
   }
 
-  // filtros
   const numerosFiltrados = numeros.filter((n) => {
     const matchBusca = busca.trim()
       ? formatNumero(n.numero).includes(busca.trim())
@@ -81,7 +77,6 @@ export default function Rifa() {
   const precoPorNumero = 10;
   const total = selecionados.length * precoPorNumero;
 
-  // contadores
   const qtdDisponivel = numeros.filter(
     (n) => n.status === "disponivel"
   ).length;
@@ -94,7 +89,6 @@ export default function Rifa() {
     (n) => n.status === "vendido"
   ).length;
 
-  // seleciona/desmarca número
   function toggleNumero(n: Numero) {
     if (n.status !== "disponivel") return;
 
@@ -105,8 +99,6 @@ export default function Rifa() {
     );
   }
 
-  // AGORA NÃO SALVA MAIS NO BANCO
-  // apenas redireciona para tela PIX
   async function handleComprar() {
     if (carregando) return;
 
@@ -117,15 +109,11 @@ export default function Rifa() {
 
     if (selecionados.length === 0) return;
 
-    // apenas navega para a tela PIX
-    // SEM RESERVAR número
-    // SEM criar compra
     router.push({
       pathname: "/pagamento-pix",
       params: {
         valor: total.toFixed(2),
 
-        // envia os números selecionados
         numeros: JSON.stringify(selecionados),
 
         placar: selecionados
@@ -137,12 +125,14 @@ export default function Rifa() {
 
   return (
     <View style={styles.container}>
-      <Header />
-
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
       >
+        {/* HEADER AGORA ROLA JUNTO */}
+        <Header />
+
         <VoltarHome />
 
         {/* STATUS */}
@@ -273,7 +263,7 @@ export default function Rifa() {
         </View>
       </ScrollView>
 
-      {/* FOOTER */}
+      {/* FOOTER FIXO */}
       <View style={styles.footer}>
         <View>
           <Text style={styles.totalTexto}>
