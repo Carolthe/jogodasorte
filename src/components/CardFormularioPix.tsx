@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   Alert,
@@ -15,6 +14,9 @@ type Props = {
   numeros: string;
   valor: string;
 
+  // ID do usuário logado
+  id_usuario: number;
+
   // retorna o id da compra criada
   onGerar: (id_compra: string) => void;
 };
@@ -22,22 +24,15 @@ type Props = {
 export default function CardFormularioPix({
   numeros,
   valor,
+  id_usuario,
   onGerar,
 }: Props) {
 
-  const [pixKey, setPixKey] = useState("");
-  const [name, setName] = useState("");
-
   const [loading, setLoading] = useState(false);
 
-  const isFormValid =
-    pixKey.trim() !== "" &&
-    name.trim() !== "";
-
-  // AGORA A COMPRA É CRIADA AQUI
-  // SOMENTE AO GERAR QR CODE PIX
+  // GERA A COMPRA + RESERVA NÚMEROS
   const handleGenerate = async () => {
-    if (!isFormValid || loading) return;
+    if (loading) return;
 
     try {
       setLoading(true);
@@ -45,38 +40,37 @@ export default function CardFormularioPix({
       // transforma string em array
       const numerosArray = JSON.parse(numeros);
 
-      // calcula valor total
+      // valor total
       const valorTotal = Number(valor);
 
-      // cria compra SOMENTE AGORA
-      // aqui os números serão reservados
+      // cria compra
+      // backend já deve reservar os números
       const response = await api.post(
         "/rifa/compras",
         {
+          id_usuario,
+
           total_numeros: numerosArray.length,
 
           valor_total: valorTotal,
 
           numeros: numerosArray,
-
-          chavepix_dono: pixKey,
-
-          nome_titular: name,
         }
       );
 
       const compra = response.data;
 
-      // abre QR CODE
+      // abre QR CODE PIX
       onGerar(compra.id_compra);
 
     } catch (error: any) {
+
       console.log(error);
 
       Alert.alert(
         "Erro",
         error?.response?.data?.erro ||
-          "Erro ao gerar PIX"
+          "Erro ao gerar QR Code PIX"
       );
 
     } finally {
@@ -86,54 +80,22 @@ export default function CardFormularioPix({
 
   return (
     <View style={styles.container}>
+
       <Text style={styles.title}>
-        Dados para Pagamento
+        Finalizar Compra
       </Text>
 
       <Text style={styles.subtitle}>
-        Informe seus dados para gerar o código PIX
-      </Text>
-
-      <Text style={styles.label}>
-        Chave PIX
-      </Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="CPF, Email, Telefone ou chave aleatória"
-        placeholderTextColor="#aaa"
-        value={pixKey}
-        onChangeText={setPixKey}
-      />
-
-      <Text style={styles.helper}>
-        Chave PIX da conta que fará o pagamento
-      </Text>
-
-      <Text style={styles.label}>
-        Nome do Titular
-      </Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Nome como consta no cartão/conta"
-        placeholderTextColor="#aaa"
-        value={name}
-        onChangeText={setName}
-      />
-
-      <Text style={styles.helper}>
-        Nome que consta no cartão/conta que fará o pagamento
+        Clique no botão abaixo para gerar o QR Code PIX e efetuar o Pagamento
       </Text>
 
       <TouchableOpacity
         style={[
           styles.button,
-          (!isFormValid || loading) &&
-            styles.buttonDisabled,
+          loading && styles.buttonDisabled,
         ]}
         onPress={handleGenerate}
-        disabled={!isFormValid || loading}
+        disabled={loading}
       >
         <Text style={styles.buttonText}>
           {loading
@@ -141,6 +103,7 @@ export default function CardFormularioPix({
             : "Gerar QR Code PIX"}
         </Text>
       </TouchableOpacity>
+
     </View>
   );
 }
@@ -154,54 +117,30 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderWidth: 1,
     borderColor: "#2c2c7d",
-    paddingBottom: 40,
+    paddingBottom: 30,
     marginTop: 15,
   },
 
   title: {
     color: "#fff",
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "600",
     marginBottom: 8,
     textAlign: "center",
   },
 
   subtitle: {
     color: "#a0a0b8",
-    marginBottom: 10,
+    marginBottom: 20,
     fontSize: 15,
-  },
-
-  label: {
-    color: "#fff",
-    fontWeight: "600",
-    marginTop: 10,
-    fontSize: 15,
-  },
-
-  input: {
-    backgroundColor: "#12122a",
-    color: "#fff",
-    borderRadius: 10,
-    padding: 15,
-    marginTop: 8,
-    fontSize: 15,
-    borderWidth: 0.5,
-    borderColor: "#2e2e50",
-  },
-
-  helper: {
-    color: "#a0a0b8",
-    fontSize: 13,
-    marginTop: 4,
+    textAlign: "center",
   },
 
   button: {
     backgroundColor: "#007ACC",
-    padding: 15,
+    padding: 16,
     borderRadius: 12,
     alignItems: "center",
-    marginTop: 20,
   },
 
   buttonDisabled: {

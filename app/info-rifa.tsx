@@ -135,8 +135,8 @@ export default function InfoRifa() {
           {/* <Item numero={5} icon="logo-instagram" cor="#7a9dd1">
             Siga-nos no Instagram para ter mais facilidade de acompanhar o sorteio.
           </Item> */}
-          <Item numero={6} icon="notifications" cor="#7a9dd1">
-            Para qualquer outra questão, nos envie mensagem pelo instagram.
+          <Item numero={5} icon="notifications" cor="#7a9dd1">
+            Para qualquer outra questão, nos envie mensagem pelo WhatsApp.
           </Item>
           <Item numero={7} icon="logo-whatsapp" cor="#7a9dd1">
             Entre no grupo do WhatsApp para receber mensagens sobre o sorteio.

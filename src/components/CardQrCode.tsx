@@ -175,7 +175,7 @@ export default function CardQrCode({ valor, id_compra, onRedirecionar }: Props) 
       >
         <Text style={styles.confirmText}>
           {expirado   ? "Tempo expirado"
-          : confirmado ? "Pagamento em Análise"
+          : confirmado ? "Obrigada"
           : processando ? "Processando..."
           : "Confirmar Pagamento"}
         </Text>

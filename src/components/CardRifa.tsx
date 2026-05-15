@@ -26,8 +26,8 @@ export default function CardRifa({
 
       {/* BADGE TOPO */}
       <View style={styles.badge}>
-        <Ionicons name="trophy" size={12} color="#2375ef" />
-        <Text style={styles.badgeText}>Sorteio ativo #101</Text>
+        <Ionicons name="trophy" size={12} color="#1fe740" />
+        <Text style={styles.badgeText}>Sorteio ativo #102</Text>
       </View>
 
       {/* TÍTULO E DESCRIÇÃO */}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     backgroundColor: "rgba(50, 50, 138, 0.15)",
     borderWidth: 0.5,
-    borderColor: "#2375ef",
+    borderColor: "#1fe740",
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   badgeText: {
-    color: "#2375ef",
-    fontSize: 11,
+    color: "#1fe740",
+    fontSize: 12,
     fontWeight: "500",
   },
 

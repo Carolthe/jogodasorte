@@ -6,8 +6,7 @@ import {
   Pressable,
   ScrollView,
   TextInput,
-} from "react-native";
-
+} from "react-native"
 import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -79,7 +78,7 @@ export default function Rifa() {
 
   const numerosPagina = numerosFiltrados;
 
-  const precoPorNumero = 1;
+  const precoPorNumero = 10;
   const total = selecionados.length * precoPorNumero;
 
   // contadores

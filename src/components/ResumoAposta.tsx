@@ -52,12 +52,12 @@ export default function ResumoAposta({ placar, valor }: Props) {
           <Text style={styles.tituloPremio}>Concorrendo:</Text>
           <View style={styles.premioRow}>
             <Text style={styles.premioLabel}>1º Prêmio</Text>
-            <Text style={styles.premioValor}>R$ 100,00</Text>
+            <Text style={styles.premioValor}>R$ 500,00</Text>
           </View>
-          {/* <View style={styles.premioRow}>
+          <View style={styles.premioRow}>
             <Text style={styles.premioLabel}>2º ao 5º Prêmio</Text>
             <Text style={styles.premioValor2}>R$ 50,00</Text>
-          </View> */}
+          </View>
         
     </View>
   );

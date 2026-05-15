@@ -1,15 +1,16 @@
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
-
 import ResumoAposta from "@/src/components/ResumoAposta";
 import Header from "@/src/components/Header";
 import CardFormularioPix from "@/src/components/CardFormularioPix";
 import CardQrCode from "@/src/components/CardQrCode";
 import VoltarAposta from "@/src/components/VoltarAposta";
+import { useAuth } from "@/src/contexts/AuthContext";
 
 export default function PagamentoPix() {
   const router = useRouter();
+  const { user } = useAuth();
 
   const params = useLocalSearchParams<{
     placar: string;
@@ -48,6 +49,7 @@ export default function PagamentoPix() {
           <CardFormularioPix
             numeros={numeros}
             valor={valor}
+            id_usuario={user!.id_usuario} // ✅ vem do contexto, não da URL
             onGerar={(id) => {
               setIdCompra(id);
               setMostrarQr(true);
