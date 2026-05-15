@@ -34,7 +34,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (tokenSalvo && userSalvo) {
         tokenRef.current = tokenSalvo;
-        api.defaults.headers.common["Authorization"] = `Bearer ${tokenSalvo}`;
         setUser(JSON.parse(userSalvo));
       }
     } catch (e) {
@@ -47,7 +46,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ── Login ────────────────────────────────────────────────────────────────
   const login = (usuario: User, token: string) => {
     tokenRef.current = token;
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     setUser(usuario);
 
     try {
@@ -61,7 +59,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ── Logout ───────────────────────────────────────────────────────────────
   const logout = () => {
     tokenRef.current = null;
-    delete api.defaults.headers.common["Authorization"];
     setUser(null);
 
     try {
