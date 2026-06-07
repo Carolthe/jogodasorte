@@ -1,47 +1,100 @@
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function CardResultadoSorteio() {
+  const ganhadores = [
+    {
+      premio: "1º Prêmio",
+      nome: "Alex",
+      descricao: "Cliente do Epifanio",
+      numero: "22",
+    },
+    { premio: "2º Prêmio", nome: "Ana", descricao: "", numero: "61" },
+    { premio: "3º Prêmio", nome: "Demily", descricao: "", numero: "07" },
+    { premio: "4º Prêmio", nome: "Lucas", descricao: "", numero: "57" },
+    { premio: "5º Prêmio", nome: "Carlos", descricao: "", numero: "85" },
+  ];
+
   return (
     <View style={styles.container}>
-      
       {/* BADGE */}
       <View style={styles.badge}>
         <Ionicons name="checkmark-circle" size={13} color="#22c55e" />
-        <Text style={styles.badgeText}>Sorteio #101 encerrado</Text>
+        <Text style={styles.badgeText}>Sorteio #102 encerrado</Text>
       </View>
 
       {/* TÍTULO */}
       <Text style={styles.titulo}>Resultado Oficial</Text>
 
       <Text style={styles.subtitulo}>
-        Confira abaixo o número sorteado e o grande ganhador(a).
+        Confira abaixo os vencedores dos 5 prêmios sorteados.
       </Text>
 
       <View style={styles.divider} />
 
-      {/* NÚMERO GANHADOR */}
-      <View style={styles.numeroBox}>
-        <Text style={styles.numeroLabel}>Número sorteado</Text>
+      {/* LISTA DE PREMIADOS */}
+      <View style={styles.premiadosContainer}>
+        {ganhadores.map((item, index) => {
+          if (index === 0) {
+            return (
+              <View key={index} style={styles.premiadoCardDestaque}>
+                <View style={styles.premiadoHeader}>
+                  <Ionicons name="trophy" size={24} color="#FFD700" />
+                  <Text style={styles.premioTituloDestaque}>
+                    {item.premio}
+                  </Text>
+                </View>
 
-        <View style={styles.numeroCircle}>
-          <Text style={styles.numero}>95</Text>
-        </View>
+                <View style={styles.premiadoInfoDestaque}>
+                  <View>
+                    <Text style={styles.nomeDestaque}>
+                      {item.nome}
+                    </Text>
+
+                    {item.descricao ? (
+                      <Text style={styles.subNomeDestaque}>
+                        {item.descricao}
+                      </Text>
+                    ) : null}
+                  </View>
+
+                  <View style={styles.numeroDestaque}>
+                    <Text style={styles.numeroDestaqueTexto}>
+                      {item.numero}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            );
+          }
+
+          return (
+            <View key={index} style={styles.premiadoCard}>
+              <View style={styles.premiadoHeader}>
+                <Ionicons name="ribbon" size={18} color="#2375ef" />
+                <Text style={styles.premioTitulo}>
+                  {item.premio}
+                </Text>
+              </View>
+
+              <View style={styles.premiadoInfo}>
+                <Text style={styles.nomePremiado}>
+                  {item.nome}
+                </Text>
+
+                <View style={styles.numeroMini}>
+                  <Text style={styles.numeroMiniTexto}>
+                    {item.numero}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          );
+        })}
       </View>
 
-      {/* GANHADOR DESTAQUE */}
-      <View style={styles.ganhadorContainer}>
-        <View style={styles.ganhadorHeader}>
-          <Ionicons name="trophy" size={18} color="#FFD700" />
-          <Text style={styles.ganhadorLabel}>GANHADOR(A)</Text>
-        </View>
-
-        <Text style={styles.ganhadorNome}>Gilvan</Text>
-
-        <View style={styles.linhaGlow} />
-      </View>
-
-      {/* MENSAGEM */}
+      {/* FOOTER */}
       <View style={styles.footerBox}>
         <Ionicons
           name="heart"
@@ -49,7 +102,6 @@ export default function CardResultadoSorteio() {
           color="#2375ef"
           style={{ marginBottom: 8 }}
         />
-
         <Text style={styles.footerTexto}>
           Obrigada a todos que participaram! {"\n"}
           Em breve lançaremos o Próximo Sorteio.
@@ -61,7 +113,7 @@ export default function CardResultadoSorteio() {
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: "100%",
     backgroundColor: "#121223",
     borderRadius: 24,
     padding: 22,
@@ -72,12 +124,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
+    shadowOffset: { width: 0, height: 5 },
   },
 
+  /* BADGE */
   badge: {
     flexDirection: "row",
     alignItems: "center",
@@ -117,91 +167,118 @@ const styles = StyleSheet.create({
     marginVertical: 22,
   },
 
-  numeroBox: {
-    alignItems: "center",
-    marginBottom: 28,
+  premiadosContainer: {
+    gap: 12,
+    marginBottom: 24,
   },
 
-  numeroLabel: {
-    color: "#9ca3af",
-    fontSize: 13,
-    marginBottom: 14,
-    letterSpacing: 1,
-    textTransform: "uppercase",
-  },
-
-  numeroCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 999,
-    backgroundColor: "rgba(35,117,239,0.12)",
+  /* =========================
+     1º PRÊMIO (DESTAQUE)
+  ========================= */
+  premiadoCardDestaque: {
+    backgroundColor: "rgba(255,215,0,0.08)",
     borderWidth: 2,
-    borderColor: "#2375ef",
+    borderColor: "rgba(255,215,0,0.5)",
+    borderRadius: 20,
+    padding: 18,
+  },
+
+  premiadoHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 14,
+  },
+
+  premioTituloDestaque: {
+    color: "#FFD700",
+    fontSize: 16,
+    fontWeight: "800",
+  },
+
+  premiadoInfoDestaque: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  nomeDestaque: {
+    color: "#fff",
+    fontSize: 28,
+    fontWeight: "900",
+  },
+
+  subNomeDestaque: {
+    color: "rgba(255,215,0,0.8)",
+    fontSize: 13,
+    marginTop: 2,
+    fontWeight: "500",
+  },
+
+  numeroDestaque: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "rgba(255,215,0,0.15)",
+    borderWidth: 2,
+    borderColor: "#FFD700",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#2375ef",
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
   },
 
-  numero: {
-    color: "#fff",
-    fontSize: 48,
-    fontWeight: "bold",
+  numeroDestaqueTexto: {
+    color: "#FFD700",
+    fontSize: 26,
+    fontWeight: "900",
   },
 
-  ganhadorContainer: {
+  /* =========================
+     DEMAIS PRÊMIOS
+  ========================= */
+  premiadoCard: {
     backgroundColor: "rgba(255,255,255,0.03)",
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.06)",
-    borderRadius: 20,
-    paddingVertical: 24,
-    paddingHorizontal: 18,
-    alignItems: "center",
-    marginBottom: 24,
-    overflow: "hidden",
+    borderRadius: 18,
+    padding: 16,
   },
 
-  ganhadorHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: 14,
-  },
-
-  ganhadorLabel: {
-    color: "#FFD700",
-    fontSize: 12,
+  premioTitulo: {
+    color: "#c0c0c0",
+    fontSize: 13,
     fontWeight: "700",
-    letterSpacing: 1.5,
   },
 
-  ganhadorNome: {
+  premiadoInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  nomePremiado: {
     color: "#fff",
-    fontSize: 36,
-    fontWeight: "bold",
-    letterSpacing: 1,
-    marginBottom: 16,
+    fontSize: 18,
+    fontWeight: "700",
   },
 
-  linhaGlow: {
-    width: "55%",
-    height: 4,
-    borderRadius: 99,
-    backgroundColor: "#2375ef",
-    shadowColor: "#2375ef",
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
+  numeroMini: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: "rgba(35,117,239,0.12)",
+    borderWidth: 1,
+    borderColor: "#2375ef",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
+  numeroMiniTexto: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+
+  /* FOOTER */
   footerBox: {
     alignItems: "center",
     paddingTop: 6,
@@ -212,6 +289,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 30,
     textAlign: "center",
-   
   },
 });
