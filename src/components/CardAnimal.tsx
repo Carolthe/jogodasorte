@@ -32,6 +32,9 @@ export default function CardAnimal({
 }: AnimalCardProps) {
   const bloqueado = disabled || sold;
 
+  // 🔥 formata 1 -> 01
+  const formatNumero = (n: number) => String(n).padStart(2, "0");
+
   return (
     <Pressable
       onPress={bloqueado ? undefined : onPress}
@@ -57,16 +60,20 @@ export default function CardAnimal({
       )}
 
       <View style={styles.topContainer}>
+        {/* 🔥 NÚMERO FORMATADO AQUI */}
         <View style={styles.numeroCircle}>
-          <Text style={styles.numero}>{numero}</Text>
+          <Text style={styles.numero}>
+            {formatNumero(numero)}
+          </Text>
         </View>
 
         <Image source={imagem} style={styles.imagem} resizeMode="contain" />
 
+        {/* 🔥 DEZENAS FORMATADAS */}
         <View style={styles.dezenasContainer}>
           {dezenas.map((dezena, index) => (
             <Text key={index} style={styles.dezena}>
-              {dezena}
+              {formatNumero(dezena)}
             </Text>
           ))}
         </View>
@@ -112,7 +119,7 @@ const styles = StyleSheet.create({
 
   numero: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
 
