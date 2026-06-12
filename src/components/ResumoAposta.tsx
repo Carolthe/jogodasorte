@@ -1,36 +1,42 @@
-import { View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 type Props = {
   placar?: string;
   valor?: string;
+  modalidade: "rifa" | "grupo";
 };
 
-export default function ResumoAposta({ placar, valor }: Props) {
+export default function ResumoAposta({ placar, valor, modalidade }: Props) {
   if (!valor || !placar) return null;
 
-  const numeros = placar.split(",").map((n) => n.trim()).filter(Boolean);
+  const itens = placar
+    .split(",")
+    .map((n) => n.trim())
+    .filter(Boolean);
 
   const valorFormatado = Number(valor).toFixed(2);
 
+  const titulo =
+    modalidade === "rifa"
+      ? "Números escolhidos"
+      : "Grupos escolhidos";
 
   return (
     <View style={styles.card}>
-
       {/* HEADER */}
       <View style={styles.header}>
-        <View>
-          <Text style={styles.title}>Resumo do Sorteio:</Text>
-        </View>
+        <Text style={styles.title}>Resumo do Sorteio:</Text>
       </View>
 
       <View style={styles.divider} />
 
-      {/* NÚMEROS */}
-      <Text style={styles.label}>Números escolhidos</Text>
+      {/* ITENS */}
+      <Text style={styles.label}>{titulo}</Text>
+
       <View style={styles.numerosContainer}>
-        {numeros.map((n) => (
-          <View key={n} style={styles.numeroBadge}>
-            <Text style={styles.numeroTexto}>{n}</Text>
+        {itens.map((item) => (
+          <View key={item} style={styles.numeroBadge}>
+            <Text style={styles.numeroTexto}>{item}</Text>
           </View>
         ))}
       </View>
@@ -40,25 +46,28 @@ export default function ResumoAposta({ placar, valor }: Props) {
       {/* TOTAIS */}
       <View style={styles.row}>
         <Text style={styles.label}>Quantidade</Text>
-        <Text style={styles.value}>{numeros.length} número(s)</Text>
+        <Text style={styles.value}>{itens.length} item(s)</Text>
       </View>
 
       <View style={styles.row}>
         <Text style={styles.label}>Valor total</Text>
         <Text style={styles.value}>R$ {valorFormatado}</Text>
       </View>
-        
-          {/* <View style={styles.divider} /> */}
-          <Text style={styles.tituloPremio}>Concorrendo:</Text>
-          <View style={styles.premioRow}>
-            <Text style={styles.premioLabel}>1º Prêmio</Text>
-            <Text style={styles.premioValor}>R$ 500,00</Text>
-          </View>
-          <View style={styles.premioRow}>
-            <Text style={styles.premioLabel}>2º ao 5º Prêmio</Text>
-            <Text style={styles.premioValor2}>R$ 50,00</Text>
-          </View>
-        
+
+      <View  />
+
+      {/* PRÊMIOS */}
+      {/* <Text style={styles.tituloPremio}>Concorrendo:</Text>
+
+      <View style={styles.premioRow}>
+        <Text style={styles.premioLabel}>1º Prêmio</Text>
+        <Text style={styles.premioValor}>R$ 500,00</Text>
+      </View>
+
+      <View style={styles.premioRow}>
+        <Text style={styles.premioLabel}>2º ao 5º Prêmio</Text>
+        <Text style={styles.premioValor2}>R$ 50,00</Text>
+      </View> */}
     </View>
   );
 }
@@ -75,30 +84,11 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-  },
-  headerIconBox: {
-    width: 42,
-    height: 42,
-    borderRadius: 10,
-    backgroundColor: "#1a1a5e",
-    borderWidth: 0.5,
-    borderColor: "#007ACC",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerIcon: {
-    fontSize: 20,
   },
   title: {
     color: "#fff",
     fontSize: 17,
     fontWeight: "500",
-  },
-  subtitle: {
-    color: "#a0a0b8",
-    fontSize: 13,
-    marginTop: 2,
   },
   divider: {
     height: 0.5,
@@ -131,7 +121,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     marginBottom: 8,
   },
   value: {
@@ -139,10 +128,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
   },
+  tituloPremio: {
+    color: "#d9d9df",
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
   premioRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     backgroundColor: "rgba(58, 79, 237, 0.1)",
     borderWidth: 0.5,
     borderColor: "#007ACC",
@@ -152,23 +145,15 @@ const styles = StyleSheet.create({
   },
   premioLabel: {
     color: "#1b64d2",
-    fontSize: 14,
   },
-  tituloPremio: {
-    color: '#d9d9df',
-    paddingBottom: 10,
-    fontWeight: 'bold',
-  },
-
   premioValor: {
     color: "#1b64d2",
     fontSize: 20,
     fontWeight: "bold",
   },
-   premioValor2: {
+  premioValor2: {
     color: "#1b64d2",
     fontSize: 16,
-    paddingVertical: 3,
     fontWeight: "bold",
   },
 });

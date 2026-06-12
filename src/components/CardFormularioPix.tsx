@@ -13,58 +13,60 @@ import api from "@/src/services/api";
 type Props = {
   numeros: string;
   valor: string;
+  modalidade: "rifa" | "grupo";
 
-  // ID do usuário logado
   id_usuario: number;
 
-  // retorna o id da compra criada
   onGerar: (id_compra: string) => void;
 };
 
 export default function CardFormularioPix({
   numeros,
   valor,
+  modalidade,
   id_usuario,
   onGerar,
 }: Props) {
-
   const [loading, setLoading] = useState(false);
 
-  // GERA A COMPRA + RESERVA NÚMEROS
   const handleGenerate = async () => {
     if (loading) return;
 
     try {
       setLoading(true);
 
-      // transforma string em array
       const numerosArray = JSON.parse(numeros);
 
-      // valor total
       const valorTotal = Number(valor);
 
-      // cria compra
-      // backend já deve reservar os números
-      const response = await api.post(
-        "/rifa/compras",
-        {
+      let response;
+
+      // RIFA
+      if (modalidade === "rifa") {
+        response = await api.post("/rifa/compras", {
           id_usuario,
-
           total_numeros: numerosArray.length,
-
           valor_total: valorTotal,
-
           numeros: numerosArray,
-        }
-      );
+        });
+      }
 
-      const compra = response.data;
+      // GRUPO
+      if (modalidade === "grupo") {
+        response = await api.post("/grupo/compras", {
+          id_usuario,
+          quantidade: numerosArray.length,
+          valor: valorTotal,
+          grupos: numerosArray,
+        });
+      }
 
-      // abre QR CODE PIX
-      onGerar(compra.id_compra);
+      if (!response?.data?.id_compra) {
+        throw new Error("Compra não criada");
+      }
 
+      onGerar(String(response.data.id_compra));
     } catch (error: any) {
-
       console.log(error);
 
       Alert.alert(
@@ -72,7 +74,6 @@ export default function CardFormularioPix({
         error?.response?.data?.erro ||
           "Erro ao gerar QR Code PIX"
       );
-
     } finally {
       setLoading(false);
     }
@@ -80,13 +81,12 @@ export default function CardFormularioPix({
 
   return (
     <View style={styles.container}>
-
       <Text style={styles.title}>
         Finalizar Compra
       </Text>
 
       <Text style={styles.subtitle}>
-        Clique no botão abaixo para gerar o QR Code PIX e efetuar o Pagamento no seu Banco
+        Clique no botão abaixo para gerar o QR Code PIX e efetuar o pagamento no seu banco.
       </Text>
 
       <TouchableOpacity
@@ -103,7 +103,6 @@ export default function CardFormularioPix({
             : "Gerar QR Code PIX"}
         </Text>
       </TouchableOpacity>
-
     </View>
   );
 }

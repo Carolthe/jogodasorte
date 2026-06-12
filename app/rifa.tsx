@@ -6,6 +6,7 @@ import {
   Pressable,
   ScrollView,
   TextInput,
+  Image
 } from "react-native";
 import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
@@ -112,6 +113,7 @@ export default function Rifa() {
     router.push({
       pathname: "/pagamento-pix",
       params: {
+        modalidade: "rifa",
         valor: total.toFixed(2),
 
         numeros: JSON.stringify(selecionados),
@@ -132,8 +134,14 @@ export default function Rifa() {
       >
         {/* HEADER AGORA ROLA JUNTO */}
         <Header />
-
         <VoltarHome />
+        <Image
+          source={{
+            uri: "https://res.cloudinary.com/do4p13i1a/image/upload/v1777997062/ChatGPT_Image_5_05_2026_16_59_47_ut3pnq.png",
+          }}
+          style={styles.image}
+        />
+        
 
         {/* STATUS */}
         <View style={styles.containerNumeros}>
@@ -249,9 +257,9 @@ export default function Rifa() {
                     style={[
                       styles.numeroTexto,
                       isSelected &&
-                        styles.numeroTextoSelected,
+                      styles.numeroTextoSelected,
                       isReservado &&
-                        styles.numeroTextoReservado,
+                      styles.numeroTextoReservado,
                     ]}
                   >
                     {formatNumero(n.numero)}
@@ -279,8 +287,8 @@ export default function Rifa() {
           style={[
             styles.botaoComprar,
             selecionados.length === 0 &&
-              !!user &&
-              styles.botaoComprarDisabled,
+            !!user &&
+            styles.botaoComprarDisabled,
           ]}
           onPress={handleComprar}
           disabled={carregando}
@@ -317,6 +325,11 @@ const styles = StyleSheet.create({
   loadingText: {
     color: "#a0a0b8",
     fontSize: 15,
+  },
+    image: {
+    width: "100%",
+    height: 190,
+    marginTop: 10
   },
 
   containerNumeros: {

@@ -8,28 +8,43 @@ type Props = {
   textoBotao: string;
   totalNumeros?: number;
   numerosVendidos?: number;
+  textoSorteio?: string;
   onPress?: () => void;
+  badgeColor?: string;
+  badgeBackgroundColor?: string;
 };
 
 export default function CardRifa({
   titulo,
   textoExtra,
   textoBotao,
+  textoSorteio,
   totalNumeros = 2000,
   numerosVendidos = 1000,
   onPress,
+  badgeColor = "#1fe740",
+  badgeBackgroundColor = "rgba(31, 231, 64, 0.15)",
 }: Props) {
-   Math.round((numerosVendidos / totalNumeros) * 100);
+  Math.round((numerosVendidos / totalNumeros) * 100);
 
   return (
     <View style={styles.container}>
 
       {/* BADGE TOPO */}
-      <View style={styles.badge}>
-        <Ionicons name="trophy" size={12} color="#1fe740" />
-        <Text style={styles.badgeText}>Sorteio ativo #102</Text>
+      <View
+        style={[
+          styles.badge,
+          {
+            borderColor: badgeColor,
+            backgroundColor: badgeBackgroundColor,
+          },
+        ]}
+      >
+        <Ionicons name="trophy" size={12} color={badgeColor} />
+        <Text style={[styles.badgeText, { color: badgeColor }]}>
+          {textoSorteio}
+        </Text>
       </View>
-
       {/* TÍTULO E DESCRIÇÃO */}
       <Text style={styles.titulo}>{titulo}</Text>
 
@@ -67,22 +82,19 @@ const styles = StyleSheet.create({
     borderColor: "#2e2e50",
     elevation: 8,
   },
-
   badge: {
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    backgroundColor: "rgba(50, 50, 138, 0.15)",
     borderWidth: 0.5,
-    borderColor: "#1fe740",
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 4,
     gap: 5,
     marginBottom: 14,
   },
+
   badgeText: {
-    color: "#1fe740",
     fontSize: 12,
     fontWeight: "500",
   },

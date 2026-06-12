@@ -5,8 +5,8 @@ import ResumoAposta from "@/src/components/ResumoAposta";
 import Header from "@/src/components/Header";
 import CardFormularioPix from "@/src/components/CardFormularioPix";
 import CardQrCode from "@/src/components/CardQrCode";
-import VoltarAposta from "@/src/components/VoltarAposta";
 import { useAuth } from "@/src/contexts/AuthContext";
+import VoltarHome from "@/src/components/VoltarHome";
 
 export default function PagamentoPix() {
   const router = useRouter();
@@ -16,6 +16,7 @@ export default function PagamentoPix() {
     placar: string;
     valor: string;
     numeros: string;
+    modalidade: "rifa" | "grupo";
   }>();
 
   const { placar, valor, numeros } = params;
@@ -48,7 +49,7 @@ export default function PagamentoPix() {
       <Header />
 
       <View style={styles.container}>
-        <VoltarAposta />
+        <VoltarHome />
 
         <Text style={styles.title}>
           Pagamento via Pix
@@ -57,12 +58,14 @@ export default function PagamentoPix() {
         <ResumoAposta
           placar={placar}
           valor={valor}
+          modalidade={params.modalidade}
         />
 
         {!mostrarQr ? (
           <CardFormularioPix
             numeros={numeros}
             valor={valor}
+            modalidade={params.modalidade}
             id_usuario={user.id_usuario}
             onGerar={(id) => {
               setIdCompra(id);

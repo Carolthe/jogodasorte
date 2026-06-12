@@ -19,8 +19,8 @@ export default function VoltarHome() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 25,
-    paddingHorizontal: 25,
+    paddingTop: 10,
+    paddingHorizontal: 18,
   },
   button: {
     width: 40,

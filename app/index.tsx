@@ -4,7 +4,7 @@ import CardPremio from '@/src/components/CardPremio';
 import CardRifa from '@/src/components/CardRifa';
 import { useRouter } from 'expo-router';
 import Carrossel from '@/src/components/Carrossel';
-import CardResultadoSorteio from '@/src/components/CardResultadoSorteio';
+//import CardResultadoSorteio from '@/src/components/CardResultadoSorteio';
 
 export default function Home() {
     const router = useRouter()
@@ -20,7 +20,7 @@ export default function Home() {
             <Carrossel imagens={banners} intervalo={4000} altura={210} />
             <Text style={styles.text}>Sorteio realizado assim que a banca fecha</Text>
             {/* <Text style={styles.descricao}>Concorra e ganhe</Text> */}
-            <View style={styles.containerCardPremio}>
+            {/* <View style={styles.containerCardPremio}>
                 <CardPremio
                     titulo="1º Prêmio"
                     valor="R$ 500,00"
@@ -29,16 +29,22 @@ export default function Home() {
                 <CardPremio
                     titulo="2º ao 5º"
                     valor="R$ 50,00"
-                     tipo="outros"
+                    tipo="outros"
                     imagem={require('@/src/assets/trofeu2.png')}
                 />
+                
 
+            </View  > */}
+
+            <View style={styles.containerCardRifa}>
+                <CardRifa onPress={() => router.replace('/grupo')} titulo='Novo jogo' textoSorteio='Sorteio ativo' descricao='Você tem 5 chances de ganhar' textoExtra='Modalidade de Grupo' textoBotao="Escolher" badgeColor="#e7c91f"
+                    badgeBackgroundColor="rgba(218, 231, 31, 0.15)" />
             </View>
             <View style={styles.containerCardRifa}>
-                <CardResultadoSorteio />
-                {/* <CardRifa onPress={() => router.replace('/rifa')} titulo='Escolha o seu número e concorra' descricao='Você tem 5 chances de ganhar' textoExtra='Cada Número custa apenas R$ 10' textoBotao="Escolher" /> */}
+                {/* <CardResultadoSorteio /> */}
+                <CardRifa onPress={() => router.replace('/rifa')} textoSorteio='Sorteio ativo #103' titulo='Escolha o seu número e concorra' descricao='Você tem 5 chances de ganhar' textoExtra='Cada Número custa apenas R$ 10' textoBotao="Escolher" badgeColor="#1fe740"
+                    badgeBackgroundColor="rgba(31, 231, 64, 0.09)" />
             </View>
-
             <Text style={styles.textInfo} onPress={() => router.replace('/info-rifa')}>Saber mais informações</Text>
         </ScrollView>
     );
@@ -70,5 +76,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 20,
         fontSize: 16,
+    },
+    modalidade: {
+        textAlign: 'center',
+        color: 'white',
+        paddingTop: 15,
+        fontWeight: '500',
+        fontSize: 20,
+
     }
 });
