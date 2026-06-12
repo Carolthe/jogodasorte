@@ -14,6 +14,10 @@ import { Ionicons } from "@expo/vector-icons";
 import VoltarHome from "@/src/components/VoltarHome";
 import api from "@/src/services/api";
 import { useAuth } from "@/src/contexts/AuthContext";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 type Numero = {
   id_numero: number;
@@ -24,6 +28,8 @@ type Numero = {
 type Filtro = "todos" | "disponivel" | "reservado" | "vendido";
 
 export default function Rifa() {
+
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const { user, carregando } = useAuth();
 
@@ -126,11 +132,18 @@ export default function Rifa() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView
+      style={styles.container}
+      edges={["bottom"]}
+    >
       <ScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{
+          paddingBottom: 180 + insets.bottom,
+        }}
         showsVerticalScrollIndicator={false}
+        overScrollMode="never"
+        bounces={false}
       >
         {/* HEADER AGORA ROLA JUNTO */}
         <Header />
@@ -141,7 +154,7 @@ export default function Rifa() {
           }}
           style={styles.image}
         />
-        
+
 
         {/* STATUS */}
         <View style={styles.containerNumeros}>
@@ -272,7 +285,14 @@ export default function Rifa() {
       </ScrollView>
 
       {/* FOOTER FIXO */}
-      <View style={styles.footer}>
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingBottom: insets.bottom + 12,
+          },
+        ]}
+      >
         <View>
           <Text style={styles.totalTexto}>
             {selecionados.length} número(s)
@@ -305,7 +325,7 @@ export default function Rifa() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -326,7 +346,7 @@ const styles = StyleSheet.create({
     color: "#a0a0b8",
     fontSize: 15,
   },
-    image: {
+  image: {
     width: "100%",
     height: 190,
     marginTop: 10
@@ -447,13 +467,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 15,
+
+    paddingHorizontal: 15,
+    paddingTop: 15,
+
     backgroundColor: "#0e0e0e",
+
     borderTopWidth: 0.5,
     borderTopColor: "#2e2e50",
+
+    elevation: 30,
+    zIndex: 999,
   },
 
   totalTexto: {
