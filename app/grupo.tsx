@@ -14,8 +14,13 @@ import { useRouter } from "expo-router";
 import { useAuth } from "@/src/contexts/AuthContext";
 import VoltarHome from "@/src/components/VoltarHome";
 import api from "@/src/services/api";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 export default function Grupo() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const { user, carregando } = useAuth();
 
@@ -93,8 +98,20 @@ export default function Grupo() {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+    <SafeAreaView
+      style={styles.container}
+      edges={["bottom"]}
+    >
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            paddingBottom: 180 + insets.bottom,
+          },
+        ]}
+        overScrollMode="never"
+        bounces={false}
+      >
         <Header />
         <VoltarHome />
 
@@ -129,7 +146,14 @@ export default function Grupo() {
       </ScrollView>
 
       {/* FOOTER */}
-      <View style={styles.footer}>
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingBottom: insets.bottom + 12,
+          },
+        ]}
+      >
         <View>
           <Text style={styles.totalTexto}>
             {selecionados.length} número(s)
@@ -150,7 +174,7 @@ export default function Grupo() {
           <Text style={styles.botaoComprarTexto}>Comprar</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -174,12 +198,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+
     backgroundColor: "#111",
+
     paddingHorizontal: 20,
-    paddingVertical: 12,
+    paddingTop: 12,
+
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+
+    borderTopWidth: 0.5,
+    borderTopColor: "#2e2e50",
+
+    elevation: 30,
+    zIndex: 999,
   },
 
   totalTexto: { color: "#aaa", fontSize: 12 },
